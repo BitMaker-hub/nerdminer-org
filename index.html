@@ -1,0 +1,1610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nerd* Mining Ecosystem</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --orange:#f7931a;--green:#00ff88;--blue:#58a6ff;
+  --dark:#070b0f;--card:#0d1117;--card2:#111820;
+  --border:#1a2a3a;--text:#c9d1d9;--dim:#6e7681;
+  --red:#ff4466;
+}
+html{scroll-behavior:smooth}
+body{background:var(--dark);color:var(--text);font-family:'Inter',sans-serif;overflow-x:hidden}
+
+/* ── CIRCUIT BACKGROUND ── */
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;
+  background-image:
+    linear-gradient(rgba(247,147,26,.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(247,147,26,.03) 1px,transparent 1px);
+  background-size:40px 40px;
+  pointer-events:none;
+}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1rem 2.5rem;
+  background:rgba(7,11,15,.85);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo{
+  font-family:'Orbitron',monospace;font-weight:900;font-size:1.3rem;
+  color:#fff;letter-spacing:.05em;
+}
+.nav-logo span{color:var(--orange)}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{
+  color:var(--dim);text-decoration:none;font-size:.875rem;
+  font-weight:500;letter-spacing:.04em;text-transform:uppercase;
+  transition:color .2s;
+}
+.nav-links a:hover{color:var(--orange)}
+
+/* ── HERO ── */
+#hero{
+  min-height:100vh;display:grid;grid-template-columns:1.15fr 1fr;
+  align-items:center;padding:6rem 4rem 4rem;gap:2rem;
+  position:relative;z-index:1;
+}
+.hero-visual{
+  display:flex;flex-direction:column;align-items:center;
+}
+.hero-iframe{
+  width:100%;aspect-ratio:3/4;max-height:92vh;
+  border:none;border-radius:0;
+  overflow:hidden;
+}
+.hero-text h1{
+  font-family:'Orbitron',monospace;font-weight:900;
+  font-size:clamp(2.5rem,5vw,4rem);line-height:1.1;
+  color:#fff;margin-bottom:1.5rem;
+}
+.hero-text h1 .accent{color:var(--orange)}
+.hero-text .lead{
+  font-size:1.1rem;line-height:1.7;color:var(--dim);
+  max-width:480px;margin-bottom:2rem;
+}
+.hero-badges{display:flex;flex-wrap:wrap;gap:.75rem;margin-bottom:2.5rem}
+.badge{
+  display:inline-flex;align-items:center;gap:.4rem;
+  padding:.35rem .8rem;border-radius:999px;font-size:.78rem;
+  font-family:'Share Tech Mono',monospace;letter-spacing:.04em;
+  border:1px solid;
+}
+.badge-orange{color:var(--orange);border-color:rgba(247,147,26,.3);background:rgba(247,147,26,.07)}
+.badge-green{color:var(--green);border-color:rgba(0,255,136,.3);background:rgba(0,255,136,.07)}
+.badge-blue{color:var(--blue);border-color:rgba(88,166,255,.3);background:rgba(88,166,255,.07)}
+.cta-row{display:flex;gap:1rem;flex-wrap:wrap}
+.btn{
+  padding:.7rem 1.6rem;border-radius:6px;font-size:.9rem;font-weight:600;
+  text-decoration:none;transition:all .2s;cursor:pointer;border:none;
+  font-family:'Inter',sans-serif;
+}
+.btn-primary{background:var(--orange);color:#000}
+.btn-primary:hover{background:#e8850f;box-shadow:0 0 20px rgba(247,147,26,.4)}
+.btn-outline-orange{background:transparent;color:var(--orange);border:1.5px solid var(--orange)}
+.btn-outline-orange:hover{background:rgba(247,147,26,.1);box-shadow:0 0 20px rgba(247,147,26,.2)}
+.btn-ghost{
+  border:1px solid var(--border);color:var(--text);background:transparent;
+}
+.btn-ghost:hover{border-color:var(--orange);color:var(--orange)}
+
+/* ── STATS BAR ── */
+.stats-bar{
+  position:relative;z-index:1;
+  display:grid;grid-template-columns:repeat(4,1fr);
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+  background:rgba(13,17,23,.8);
+}
+.stat-item{
+  padding:1.5rem 2rem;text-align:center;
+  border-right:1px solid var(--border);
+}
+.stat-item:last-child{border-right:none}
+.stat-num{
+  font-family:'Orbitron',monospace;font-size:1.8rem;font-weight:700;
+  color:var(--orange);display:block;
+}
+.stat-label{font-size:.8rem;color:var(--dim);text-transform:uppercase;letter-spacing:.06em;margin-top:.3rem;display:block}
+
+/* ── SECTIONS ── */
+section{position:relative;z-index:1;padding:5rem 4rem}
+.section-tag{
+  font-family:'Share Tech Mono',monospace;font-size:.75rem;
+  color:var(--orange);letter-spacing:.15em;text-transform:uppercase;
+  margin-bottom:.75rem;
+}
+.section-title{
+  font-family:'Orbitron',monospace;font-size:clamp(1.6rem,3vw,2.2rem);
+  font-weight:700;color:#fff;margin-bottom:1rem;
+}
+.section-desc{color:var(--dim);line-height:1.7;max-width:600px;margin-bottom:3rem}
+
+/* ── NERDMINER INTRO ── */
+/* ── NERDMINER INTRO SECTION ── */
+#about{background:linear-gradient(160deg,rgba(247,147,26,.13) 0%,rgba(247,147,26,.06) 45%,transparent 100%);border-top:1px solid rgba(247,147,26,.18);border-bottom:1px solid rgba(247,147,26,.08)}
+.nm-section-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:2.5rem;gap:2rem}
+.nm-section-logo{width:130px;height:130px;object-fit:contain;flex-shrink:0;opacity:.9;filter:drop-shadow(0 0 20px rgba(247,147,26,.25))}
+.nm-verb{display:inline-block;color:var(--orange);transition:opacity .35s ease,transform .35s ease}
+.nm-title-logo{height:1.15em;vertical-align:middle;display:inline-block;margin-left:.15em}
+.nm-verb.fading{opacity:0;transform:translateY(-6px)}
+.nm-key-phrase{color:var(--orange);font-weight:600;font-style:normal}
+.nm-section{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
+.nm-pillars{display:flex;flex-direction:column;gap:1.25rem;margin-top:.5rem}
+.nm-pillar{display:flex;gap:1rem;align-items:flex-start}
+.nm-pillar-icon{font-size:1.4rem;flex-shrink:0;margin-top:.1rem}
+.nm-pillar-body{}
+.nm-pillar-title{font-family:'Share Tech Mono',monospace;font-size:.82rem;color:#fff;font-weight:600;margin-bottom:.25rem;letter-spacing:.04em}
+.nm-pillar-text{color:var(--dim);font-size:.85rem;line-height:1.6}
+.nm-hw-box{background:rgba(13,17,23,.6);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:1.25rem 1.5rem;margin-top:1rem}
+.nm-hw-label{font-family:'Share Tech Mono',monospace;font-size:.65rem;color:var(--dim);text-transform:uppercase;letter-spacing:.12em;margin-bottom:.6rem}
+.nm-hw-boards{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:.75rem}
+.nm-hw-board{font-family:'Share Tech Mono',monospace;font-size:.7rem;padding:.2rem .55rem;border-radius:4px;border:1px solid rgba(255,255,255,.1);color:#888;background:rgba(255,255,255,.03)}
+.nm-hw-board-more{border-color:rgba(247,147,26,.4);color:var(--orange);font-weight:700;background:rgba(247,147,26,.07)}
+.nm-hw-more{font-size:.75rem;color:var(--orange);text-decoration:none}
+.nm-hw-more:hover{text-decoration:underline}
+.nm-hw-btns{display:flex;gap:.6rem;margin-top:.9rem;flex-wrap:wrap}
+.nm-hw-btn{display:inline-flex;align-items:center;gap:.4rem;font-family:'Share Tech Mono',monospace;font-size:.72rem;padding:.4rem .85rem;border-radius:6px;text-decoration:none;transition:background .2s,border-color .2s}
+.nm-hw-btn.btn-repo{border:1px solid rgba(247,147,26,.35);color:var(--orange);background:rgba(247,147,26,.07)}
+.nm-hw-btn.btn-repo:hover{background:rgba(247,147,26,.15);border-color:rgba(247,147,26,.6)}
+.nm-hw-btn.btn-flash{border:1px solid rgba(88,166,255,.35);color:var(--blue);background:rgba(88,166,255,.07)}
+.nm-hw-btn.btn-flash:hover{background:rgba(88,166,255,.15);border-color:rgba(88,166,255,.6)}
+/* testimonials + build image */
+.nm-right-col{display:flex}
+.nm-quickstart{margin-top:1.5rem;padding:.9rem 1.25rem;background:rgba(247,147,26,.07);border:1px solid rgba(247,147,26,.2);border-radius:10px}
+.nm-qs-steps{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
+.nm-qs-step{display:flex;align-items:center;gap:.45rem}
+.nm-qs-num{font-family:'Share Tech Mono',monospace;font-size:.62rem;color:var(--orange);opacity:.7}
+.nm-qs-text{font-family:'Share Tech Mono',monospace;font-size:.75rem;color:#fff;white-space:nowrap}
+.nm-qs-arrow{color:var(--orange);opacity:.5;font-size:.9rem;flex-shrink:0}
+.nm-build-img-wrap{width:100%;border-radius:14px;overflow:hidden;border:1px solid rgba(247,147,26,.3);box-shadow:0 0 36px rgba(247,147,26,.12)}
+.nm-build-img{width:100%;aspect-ratio:4/3;display:block;object-fit:cover;object-position:center top}
+.nm-testimonials-header{margin-top:3rem;margin-bottom:1.25rem}
+.nm-testimonials-sub{color:var(--dim);font-size:.88rem;margin-top:.3rem}
+.nm-testimonials-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
+.nm-testimonials{display:flex;flex-direction:column;gap:1rem}
+.nm-tweet{background:rgba(13,17,23,.7);border:1px solid rgba(247,147,26,.15);border-radius:10px;padding:1.25rem 1.5rem;position:relative}
+.nm-tweet::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--orange);border-radius:3px 0 0 3px}
+.nm-tweet-text{color:#ccc;font-size:.85rem;line-height:1.6;margin-bottom:.75rem}
+.nm-tweet-text em{color:#fff;font-style:normal;font-weight:500}
+.nm-tweet-author{display:flex;align-items:center;gap:.5rem}
+.nm-tweet-handle{font-family:'Share Tech Mono',monospace;font-size:.72rem;color:var(--orange)}
+.nm-tweet-via{font-size:.7rem;color:var(--dim);margin-left:auto}
+.nm-tweet-link{color:var(--dim);text-decoration:none;font-size:.7rem}
+.nm-tweet-link:hover{color:var(--orange)}
+
+/* ── NEXT STEP BRIDGE ── */
+.next-step-bridge{padding:4rem 2rem;border-top:1px solid rgba(255,255,255,.05)}
+.nsb-inner{max-width:960px;margin:0 auto;display:grid;grid-template-columns:140px 1fr 140px;align-items:center;gap:3rem}
+.nsb-logo-wrap{display:flex;justify-content:center;align-items:center}
+.nsb-logo{width:110px;height:110px;object-fit:contain;opacity:.85;filter:drop-shadow(0 0 18px rgba(247,147,26,.2));transition:opacity .3s}
+.nsb-logo:hover{opacity:1}
+.nsb-logo-bitaxe{filter:drop-shadow(0 0 18px rgba(247,147,26,.2));width:140px;height:auto}
+.nsb-body{text-align:center}
+.nsb-text{color:var(--dim);font-size:.92rem;line-height:1.8;margin-bottom:.75rem}
+.nsb-text strong{color:#ccc;font-weight:500}
+.nsb-link{color:var(--orange);text-decoration:none;border-bottom:1px solid rgba(247,147,26,.35);transition:border-color .2s}
+.nsb-link:hover{border-color:var(--orange)}
+.nsb-arrow{display:block;color:var(--orange);font-size:1.4rem;opacity:.5;margin-top:1.5rem;animation:bounceDown 1.6s ease-in-out infinite}
+@keyframes bounceDown{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+
+/* ── DEVICE CARDS ── */
+.devices-section{background:rgba(13,17,23,.5)}
+.devices-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
+  gap:1.5rem;
+}
+.device-card{
+  background:var(--card);border:1px solid var(--border);border-radius:12px;
+  overflow:hidden;transition:all .3s;position:relative;
+}
+.device-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.4);}
+.device-card[data-color="orange"]:hover{border-color:rgba(247,147,26,.45);}
+.device-card[data-color="yellow"]:hover{border-color:rgba(245,197,24,.45);}
+.device-card[data-color="purple"]:hover{border-color:rgba(167,139,250,.45);}
+.device-card[data-color="green"]:hover{border-color:rgba(0,255,136,.35);}
+.device-card[data-color="blue"]:hover{border-color:rgba(88,166,255,.45);}
+.device-card[data-color="red"]:hover{border-color:rgba(248,113,113,.45);}
+.device-card.hidden{display:none}
+.card-header{
+  padding:1.25rem 1.5rem;
+  min-height:4.5rem;
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.card-title-wrap{}
+.card-title{
+  font-family:'Orbitron',monospace;font-weight:700;font-size:1rem;
+  color:#fff;
+}
+.card-chip-badge{
+  font-family:'Share Tech Mono',monospace;font-size:.72rem;
+  padding:.2rem .55rem;border-radius:4px;
+  background:rgba(88,166,255,.12);color:var(--blue);
+  border:1px solid rgba(88,166,255,.2);
+}
+.card-chip-badge.asic-badge{
+  background:rgba(247,147,26,.12);color:var(--orange);
+  border-color:rgba(247,147,26,.2);
+}
+.card-chip-badge.no-asic-badge{
+  background:rgba(0,255,136,.12);color:var(--green);
+  border-color:rgba(0,255,136,.2);
+}
+.variant-selector{display:flex;gap:.25rem;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:8px;padding:3px}
+.variant-btn{padding:.28rem .7rem;border-radius:5px;font-size:.72rem;font-weight:600;font-family:'Share Tech Mono',monospace;cursor:pointer;border:none;background:transparent;color:var(--dim);transition:all .18s;white-space:nowrap}
+.variant-btn.active{background:var(--orange);color:#000}
+.variant-btn:not(.active):hover{color:var(--text)}
+.card-body{padding:1.25rem 1.5rem}
+.card-desc{font-size:.87rem;color:var(--dim);line-height:1.6;margin-bottom:1.25rem}
+.specs-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:1.25rem;
+}
+.spec{
+  background:rgba(255,255,255,.03);border:1px solid var(--border);
+  border-radius:6px;padding:.5rem .7rem;
+}
+.spec-label{font-size:.68rem;color:var(--dim);text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:.2rem}
+.spec-val{font-family:'Share Tech Mono',monospace;font-size:.88rem;color:var(--text)}
+.spec-val.hi{color:var(--orange)}
+.card-revisions{margin:.6rem 0 .5rem;display:flex;flex-direction:column;gap:.3rem}
+.card-revisions-label{font-family:'Share Tech Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-bottom:.1rem}
+.rev-tags{display:flex;flex-wrap:wrap;gap:.3rem}
+.rev-tag{font-family:'Share Tech Mono',monospace;font-size:.7rem;padding:.18rem .55rem;border-radius:4px;border:1px solid var(--border);color:var(--dim);background:rgba(255,255,255,.03);white-space:nowrap}
+.rev-tag.rev-link{color:var(--orange);border-color:rgba(247,147,26,.3);background:rgba(247,147,26,.05);text-decoration:none;transition:all .15s}
+.rev-tag.rev-link:hover{background:rgba(247,147,26,.12);color:#fff}
+.fw-tag{font-family:'Share Tech Mono',monospace;font-size:.72rem;padding:.2rem .6rem;border-radius:4px;border:1px solid rgba(0,255,136,.25);color:var(--green);background:rgba(0,255,136,.05)}
+.card-links{display:flex;flex-wrap:wrap;gap:.5rem}
+.card-link{
+  display:inline-flex;align-items:center;gap:.35rem;
+  font-size:.78rem;color:var(--dim);text-decoration:none;
+  padding:.3rem .7rem;border-radius:5px;
+  border:1px solid var(--border);transition:all .2s;
+  font-family:'Share Tech Mono',monospace;
+}
+.card-link:hover{color:var(--orange);border-color:rgba(247,147,26,.4)}
+.card-link svg{width:12px;height:12px;flex-shrink:0}
+.card-top-accent{height:2px;width:100%}
+.accent-orange{background:linear-gradient(90deg,var(--orange),transparent)}
+.accent-green{background:linear-gradient(90deg,var(--green),transparent)}
+.accent-yellow{background:linear-gradient(90deg,#f5c518,transparent)}
+.accent-purple{background:linear-gradient(90deg,#a78bfa,transparent)}
+.accent-blue{background:linear-gradient(90deg,var(--blue),transparent)}
+.accent-red{background:linear-gradient(90deg,#f87171,transparent)}
+
+/* ── NERD*OS ── */
+.nerdos-section{
+  background:linear-gradient(135deg,rgba(247,147,26,.05) 0%,rgba(13,17,23,0) 60%);
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+}
+.nerdos-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
+.nerdos-visual{
+  background:var(--card);border:1px solid var(--border);border-radius:12px;
+  padding:1.5rem;font-family:'Share Tech Mono',monospace;font-size:.8rem;
+  color:var(--green);line-height:1.8;overflow:hidden;
+  position:relative;align-self:center;
+}
+.nerdos-visual::before{
+  content:'NerdOS — ESP-Miner-NerdQAxePlus';
+  display:block;color:var(--dim);font-size:.7rem;margin-bottom:.75rem;
+  padding-bottom:.75rem;border-bottom:1px solid var(--border);
+}
+.os-line{margin:.15rem 0}
+.os-line .key{color:var(--blue)}
+.os-line .val{color:var(--orange)}
+.os-line .ok{color:var(--green)}
+.os-feat-list{margin-top:2rem;display:flex;flex-direction:column;gap:.6rem}
+.os-feat{
+  display:flex;align-items:flex-start;gap:.75rem;
+  font-size:.87rem;color:var(--dim);line-height:1.5;
+}
+.os-feat::before{content:'▸';color:var(--orange);flex-shrink:0;margin-top:.05rem}
+
+/* ── POOL ── */
+.pool-card{
+  display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:center;
+  background:var(--card);border:1px solid var(--border);border-radius:12px;
+  padding:2rem 2.5rem;margin-top:2rem;
+  border-left:3px solid var(--orange);
+}
+.pool-info h3{
+  font-family:'Orbitron',monospace;font-size:1.1rem;font-weight:700;
+  color:var(--orange);margin-bottom:.5rem;
+}
+.pool-info p{color:var(--dim);font-size:.9rem;line-height:1.6}
+.pool-url{
+  font-family:'Share Tech Mono',monospace;font-size:.85rem;
+  color:var(--green);margin-top:.75rem;display:block;
+}
+
+/* ── REPOS ── */
+.repos-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem}
+.repo-card{
+  background:var(--card);border:1px solid var(--border);border-radius:10px;
+  padding:1.25rem;text-decoration:none;transition:all .2s;display:block;position:relative;overflow:hidden;
+}
+.repo-card-img{
+  position:absolute;bottom:.6rem;right:.75rem;
+  width:48px;height:48px;object-fit:contain;
+  filter:brightness(0) invert(1) opacity(.28);
+  pointer-events:none;transition:filter .35s ease;
+}
+.repo-card:hover .repo-card-img{
+  filter:brightness(0) invert(1) sepia(1) saturate(5) hue-rotate(340deg) opacity(.75);
+}
+.repo-card:hover{border-color:rgba(247,147,26,.4);transform:translateY(-2px)}
+.repo-name{
+  font-family:'Share Tech Mono',monospace;font-size:.9rem;color:var(--blue);
+  margin-bottom:.5rem;display:block;
+}
+.repo-desc{font-size:.82rem;color:var(--dim);line-height:1.5;margin-bottom:.75rem}
+.repo-meta{display:flex;align-items:center;gap:1rem}
+.repo-lang{font-size:.75rem;color:var(--dim)}
+.repo-lang span{
+  display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:.3rem;
+  background:var(--orange);
+}
+.repo-card-featured{
+  border-color:rgba(247,147,26,.45)!important;
+  background:rgba(247,147,26,.06)!important;
+  position:relative;
+}
+.repo-card-featured::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--orange),rgba(247,147,26,.2));
+  border-radius:8px 8px 0 0;
+}
+.repo-card-featured .repo-name{color:var(--orange)!important}
+.repo-featured-badge{
+  display:inline-block;margin-bottom:.5rem;
+  font-family:'Share Tech Mono',monospace;font-size:.65rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--orange);
+  background:rgba(247,147,26,.12);border:1px solid rgba(247,147,26,.3);
+  border-radius:4px;padding:.15rem .5rem;
+}
+.card-device-img{
+  margin:.75rem 0 .9rem;
+  background:rgba(255,255,255,.025);
+  border:1px solid var(--border);
+  border-radius:8px;
+  height:148px;
+  display:flex;justify-content:center;align-items:center;
+  overflow:hidden;
+  transition:border-color .4s ease, background .4s ease;
+}
+.card-device-img img{
+  width:116px;height:116px;object-fit:contain;
+  filter:brightness(0) invert(1) opacity(.22);
+  transition:filter .4s ease;
+}
+/* card-device-img border per color */
+.device-card[data-color="orange"]:hover .card-device-img{border-color:rgba(247,147,26,.35);background:rgba(247,147,26,.04);}
+.device-card[data-color="yellow"]:hover .card-device-img{border-color:rgba(245,197,24,.35);background:rgba(245,197,24,.04);}
+.device-card[data-color="purple"]:hover .card-device-img{border-color:rgba(167,139,250,.35);background:rgba(167,139,250,.04);}
+.device-card[data-color="green"]:hover .card-device-img{border-color:rgba(0,255,136,.3);background:rgba(0,255,136,.04);}
+.device-card[data-color="blue"]:hover .card-device-img{border-color:rgba(88,166,255,.35);background:rgba(88,166,255,.04);}
+/* device image tint per color on hover */
+.device-card[data-color="orange"]:hover .card-device-img img{filter:brightness(0) invert(1) sepia(1) saturate(6) hue-rotate(340deg) opacity(1);}
+.device-card[data-color="yellow"]:hover .card-device-img img{filter:brightness(0) invert(1) sepia(1) saturate(8) hue-rotate(10deg) opacity(1);}
+.device-card[data-color="purple"]:hover .card-device-img img{filter:brightness(0) invert(1) sepia(1) saturate(4) hue-rotate(220deg) opacity(1);}
+.device-card[data-color="green"]:hover .card-device-img img{filter:brightness(0) invert(1) sepia(1) saturate(8) hue-rotate(100deg) opacity(1);}
+.device-card[data-color="blue"]:hover .card-device-img img{filter:brightness(0) invert(1) sepia(1) saturate(4) hue-rotate(190deg) opacity(1);}
+.device-card[data-color="red"]:hover{border-color:rgba(248,113,113,.45);}
+.device-card[data-color="red"]:hover .card-device-img{border-color:rgba(248,113,113,.35);background:rgba(248,113,113,.04);}
+.device-card[data-color="red"]:hover .card-device-img img{filter:brightness(0) invert(1) sepia(1) saturate(5) hue-rotate(310deg) opacity(1);}
+.repo-stars{font-size:.75rem;color:var(--dim);font-family:'Share Tech Mono',monospace}
+
+/* ── FOOTER ── */
+footer{
+  position:relative;z-index:1;padding:3rem 4rem;
+  border-top:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:1.5rem;
+}
+.footer-logo{
+  font-family:'Orbitron',monospace;font-weight:900;font-size:1.1rem;color:#fff;
+}
+.footer-logo span{color:var(--orange)}
+.footer-links{display:flex;gap:1.5rem;list-style:none}
+.footer-links a{color:var(--dim);text-decoration:none;font-size:.85rem;transition:color .2s}
+.footer-links a:hover{color:var(--orange)}
+.footer-copy{color:var(--dim);font-size:.8rem}
+
+/* ── UTILS ── */
+.glow-text{text-shadow:0 0 20px rgba(247,147,26,.5)}
+.sep{
+  border:none;border-top:1px solid var(--border);
+  margin:0;
+}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  #hero{grid-template-columns:1fr;padding:5rem 1.5rem 3rem;text-align:center}
+  .hero-visual{order:-1}
+  .hero-badges,.cta-row{justify-content:center}
+  .stats-bar{grid-template-columns:repeat(2,1fr)}
+  section{padding:3.5rem 1.5rem}
+  .division-grid,.nerdos-grid,.nm-section,.nm-testimonials-row,.nsb-inner{grid-template-columns:1fr}
+  .nsb-logo-wrap{display:none}
+  .pool-card{grid-template-columns:1fr}
+  footer{flex-direction:column;text-align:center;padding:2rem 1.5rem}
+}
+@media(max-width:600px){
+  nav{padding:.75rem 1rem}
+  .stats-bar{grid-template-columns:1fr 1fr}
+}
+
+/* ── SCROLL REVEAL ── */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.reveal.visible{opacity:1;transform:none}
+
+
+
+.card-resources{margin:.6rem 0 .5rem}
+.card-resources .card-revisions-label{font-family:'Share Tech Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-bottom:.4rem}
+.card-resources .card-links{margin-top:0}
+.card-lead-bottom{margin-top:.75rem;padding:.4rem .7rem;border:1px solid rgba(88,166,255,.2);background:rgba(88,166,255,.05);border-radius:6px;display:flex;align-items:center;gap:.5rem;font-family:'Share Tech Mono',monospace;font-size:.68rem;}
+.card-lead-label{color:var(--dim);text-transform:uppercase;letter-spacing:.1em;white-space:nowrap;}
+.card-lead-bottom a{color:var(--blue);text-decoration:none;transition:color .2s;}
+.card-lead-bottom a:hover{color:#fff;}
+
+.flasher-wrap{position:relative;display:inline-block;}
+.flasher-btn{cursor:pointer;font-family:'Inter',sans-serif;font-size:.8rem;
+  background:transparent;border:1px solid var(--border);border-radius:6px;
+  color:var(--dim);padding:.3rem .7rem;transition:all .2s;line-height:1.4;}
+.flasher-btn:hover,.flasher-wrap.open .flasher-btn{
+  border-color:rgba(247,147,26,.4);color:var(--orange);background:rgba(247,147,26,.06);}
+.flasher-menu{
+  display:none;position:absolute;bottom:calc(100% + 6px);left:0;
+  background:#111820;border:1px solid var(--border);border-radius:8px;
+  min-width:190px;z-index:50;overflow:hidden;
+  box-shadow:0 8px 24px rgba(0,0,0,.5);}
+.flasher-wrap.open .flasher-menu{display:block;}
+.flasher-item{
+  display:block;padding:.55rem .85rem;font-size:.78rem;color:var(--dim);
+  text-decoration:none;transition:background .15s,color .15s;
+  font-family:'Share Tech Mono',monospace;white-space:nowrap;}
+.flasher-item:hover{background:rgba(247,147,26,.08);color:var(--orange);}
+.flasher-item+.flasher-item{border-top:1px solid var(--border);}
+
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Nerd<span>*</span></div>
+  <ul class="nav-links">
+    <li><a href="#devices">Devices</a></li>
+    <li><a href="#firmware">Firmware</a></li>
+    <li><a href="#pool">Pool</a></li>
+    <li><a href="#repos">Repos</a></li>
+    <li><a href="https://github.com/BitMaker-hub" target="_blank">GitHub</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-visual">
+    <iframe class="hero-iframe" src="animationProject/NerdMiner Morph.html" title="Nerd* Device Evolution" loading="eager"></iframe>
+    <svg id="device-svg" viewBox="0 0 280 400" xmlns="http://www.w3.org/2000/svg" fill="none" style="display:none">
+
+      <!-- ── NERDMINER ── -->
+      <g id="dev-0" opacity="1">
+        <!-- Board outline -->
+        <rect x="30" y="15" width="220" height="370" rx="10" stroke="#f7931a" stroke-width="1.5"/>
+        <!-- Display -->
+        <rect x="48" y="32" width="184" height="120" rx="4" stroke="#00ff88" stroke-width="1.2"/>
+        <!-- Display content lines -->
+        <line x1="62" y1="60" x2="170" y2="60" stroke="#00ff88" stroke-width="1" opacity=".6"/>
+        <line x1="62" y1="78" x2="210" y2="78" stroke="#00ff88" stroke-width="1" opacity=".4"/>
+        <line x1="62" y1="96" x2="145" y2="96" stroke="#00ff88" stroke-width="1" opacity=".4"/>
+        <line x1="62" y1="114" x2="190" y2="114" stroke="#00ff88" stroke-width="1" opacity=".3"/>
+        <!-- Hash label in display -->
+        <text x="140" y="54" text-anchor="middle" font-family="Share Tech Mono" font-size="8" fill="#00ff88" opacity=".8">NERDMINER V2</text>
+        <!-- ESP32-S3 chip -->
+        <rect x="90" y="185" width="100" height="70" rx="3" stroke="#58a6ff" stroke-width="1.2"/>
+        <text x="140" y="224" text-anchor="middle" font-family="Share Tech Mono" font-size="7" fill="#58a6ff">ESP32-S3</text>
+        <!-- Chip pins left -->
+        <line x1="90" y1="200" x2="72" y2="200" stroke="#58a6ff" stroke-width="1" opacity=".5"/>
+        <line x1="90" y1="210" x2="72" y2="210" stroke="#58a6ff" stroke-width="1" opacity=".5"/>
+        <line x1="90" y1="220" x2="72" y2="220" stroke="#58a6ff" stroke-width="1" opacity=".5"/>
+        <line x1="90" y1="230" x2="72" y2="230" stroke="#58a6ff" stroke-width="1" opacity=".5"/>
+        <line x1="90" y1="240" x2="72" y2="240" stroke="#58a6ff" stroke-width="1" opacity=".5"/>
+        <!-- Chip pins right -->
+        <line x1="190" y1="200" x2="208" y2="200" stroke="#58a6ff" stroke-width="1" opacity=".5"/>
+        <line x1="190" y1="210" x2="208" y2="210" stroke="#58a6ff" stroke-width="1" opacity=".5"/>
+        <line x1="190" y1="220" x2="208" y2="220" stroke="#58a6ff" stroke-width="1" opacity=".5"/>
+        <line x1="190" y1="230" x2="208" y2="230" stroke="#58a6ff" stroke-width="1" opacity=".5"/>
+        <line x1="190" y1="240" x2="208" y2="240" stroke="#58a6ff" stroke-width="1" opacity=".5"/>
+        <!-- Antenna squiggle -->
+        <path d="M200 175 L210 165 L215 175 L220 165 L225 175 L230 168" stroke="#f7931a" stroke-width="1" opacity=".7"/>
+        <!-- USB-C bottom -->
+        <rect x="115" y="372" width="50" height="12" rx="6" stroke="#888" stroke-width="1"/>
+        <!-- WiFi symbol -->
+        <path d="M125 320 Q140 306 155 320" stroke="#f7931a" stroke-width="1.2" opacity=".6"/>
+        <path d="M118 313 Q140 295 162 313" stroke="#f7931a" stroke-width="1" opacity=".4"/>
+        <circle cx="140" cy="327" r="2.5" fill="#f7931a" opacity=".8"/>
+        <!-- Small components -->
+        <rect x="55" y="300" width="22" height="12" rx="2" stroke="#666" stroke-width="1" opacity=".5"/>
+        <rect x="85" y="300" width="18" height="12" rx="2" stroke="#666" stroke-width="1" opacity=".5"/>
+        <rect x="185" y="300" width="22" height="12" rx="2" stroke="#666" stroke-width="1" opacity=".5"/>
+        <!-- Header pins bottom row -->
+        <line x1="50" y1="160" x2="50" y2="172" stroke="#666" stroke-width="2" opacity=".4"/>
+        <line x1="60" y1="160" x2="60" y2="172" stroke="#666" stroke-width="2" opacity=".4"/>
+        <line x1="70" y1="160" x2="70" y2="172" stroke="#666" stroke-width="2" opacity=".4"/>
+        <line x1="210" y1="160" x2="210" y2="172" stroke="#666" stroke-width="2" opacity=".4"/>
+        <line x1="220" y1="160" x2="220" y2="172" stroke="#666" stroke-width="2" opacity=".4"/>
+        <line x1="230" y1="160" x2="230" y2="172" stroke="#666" stroke-width="2" opacity=".4"/>
+      </g>
+
+      <!-- ── NERDAXE ── -->
+      <g id="dev-1" opacity="0">
+        <!-- Board outline -->
+        <rect x="25" y="15" width="230" height="370" rx="10" stroke="#f7931a" stroke-width="1.5"/>
+        <!-- Display (same as NerdMiner) -->
+        <rect x="42" y="30" width="196" height="110" rx="4" stroke="#00ff88" stroke-width="1.2"/>
+        <text x="140" y="50" text-anchor="middle" font-family="Share Tech Mono" font-size="8" fill="#00ff88" opacity=".8">NERDAXE</text>
+        <line x1="58" y1="66" x2="180" y2="66" stroke="#00ff88" stroke-width="1" opacity=".6"/>
+        <line x1="58" y1="82" x2="210" y2="82" stroke="#00ff88" stroke-width="1" opacity=".4"/>
+        <line x1="58" y1="98" x2="160" y2="98" stroke="#00ff88" stroke-width="1" opacity=".4"/>
+        <line x1="58" y1="114" x2="200" y2="114" stroke="#00ff88" stroke-width="1" opacity=".3"/>
+        <!-- Heatsink fins above ASIC -->
+        <rect x="60" y="165" width="160" height="50" rx="2" stroke="#888" stroke-width="1" opacity=".7"/>
+        <line x1="76" y1="166" x2="76" y2="214" stroke="#888" stroke-width=".8" opacity=".5"/>
+        <line x1="92" y1="166" x2="92" y2="214" stroke="#888" stroke-width=".8" opacity=".5"/>
+        <line x1="108" y1="166" x2="108" y2="214" stroke="#888" stroke-width=".8" opacity=".5"/>
+        <line x1="124" y1="166" x2="124" y2="214" stroke="#888" stroke-width=".8" opacity=".5"/>
+        <line x1="140" y1="166" x2="140" y2="214" stroke="#888" stroke-width=".8" opacity=".5"/>
+        <line x1="156" y1="166" x2="156" y2="214" stroke="#888" stroke-width=".8" opacity=".5"/>
+        <line x1="172" y1="166" x2="172" y2="214" stroke="#888" stroke-width=".8" opacity=".5"/>
+        <line x1="188" y1="166" x2="188" y2="214" stroke="#888" stroke-width=".8" opacity=".5"/>
+        <line x1="204" y1="166" x2="204" y2="214" stroke="#888" stroke-width=".8" opacity=".5"/>
+        <!-- BM1370 ASIC chip -->
+        <rect x="90" y="228" width="100" height="80" rx="3" stroke="#f7931a" stroke-width="1.5"/>
+        <text x="140" y="265" text-anchor="middle" font-family="Share Tech Mono" font-size="8" fill="#f7931a">BM1370</text>
+        <text x="140" y="278" text-anchor="middle" font-family="Share Tech Mono" font-size="7" fill="#f7931a" opacity=".6">1× ASIC</text>
+        <!-- ASIC circuit lines -->
+        <line x1="100" y1="245" x2="130" y2="245" stroke="#f7931a" stroke-width=".8" opacity=".4"/>
+        <line x1="150" y1="245" x2="180" y2="245" stroke="#f7931a" stroke-width=".8" opacity=".4"/>
+        <line x1="100" y1="290" x2="130" y2="290" stroke="#f7931a" stroke-width=".8" opacity=".4"/>
+        <line x1="150" y1="290" x2="180" y2="290" stroke="#f7931a" stroke-width=".8" opacity=".4"/>
+        <!-- Fan circle -->
+        <circle cx="140" cy="345" r="30" stroke="#888" stroke-width="1" opacity=".6"/>
+        <circle cx="140" cy="345" r="8" stroke="#888" stroke-width="1" opacity=".5"/>
+        <line x1="140" y1="315" x2="140" y2="337" stroke="#888" stroke-width="1" opacity=".4"/>
+        <line x1="140" y1="353" x2="140" y2="375" stroke="#888" stroke-width="1" opacity=".4"/>
+        <line x1="110" y1="345" x2="132" y2="345" stroke="#888" stroke-width="1" opacity=".4"/>
+        <line x1="148" y1="345" x2="170" y2="345" stroke="#888" stroke-width="1" opacity=".4"/>
+        <!-- Fan blades -->
+        <path d="M140 337 Q148 330 152 318" stroke="#888" stroke-width=".8" opacity=".4"/>
+        <path d="M148 345 Q155 337 168 333" stroke="#888" stroke-width=".8" opacity=".4"/>
+        <path d="M140 353 Q132 360 128 372" stroke="#888" stroke-width=".8" opacity=".4"/>
+        <path d="M132 345 Q125 353 112 357" stroke="#888" stroke-width=".8" opacity=".4"/>
+        <!-- Power connector -->
+        <rect x="55" y="370" width="40" height="14" rx="2" stroke="#888" stroke-width="1" opacity=".6"/>
+        <text x="75" y="380" text-anchor="middle" font-family="Share Tech Mono" font-size="6" fill="#888" opacity=".6">5V/5A</text>
+        <!-- ESP32-S3 small -->
+        <rect x="55" y="148" width="40" height="16" rx="2" stroke="#58a6ff" stroke-width=".8" opacity=".6"/>
+        <text x="75" y="160" text-anchor="middle" font-family="Share Tech Mono" font-size="6" fill="#58a6ff" opacity=".6">ESP32-S3</text>
+      </g>
+
+      <!-- ── NERDQAXE ── -->
+      <g id="dev-2" opacity="0">
+        <!-- Board outline (wider) -->
+        <rect x="10" y="10" width="260" height="380" rx="10" stroke="#f7931a" stroke-width="1.5"/>
+        <!-- Display -->
+        <rect x="28" y="24" width="224" height="100" rx="4" stroke="#00ff88" stroke-width="1.2"/>
+        <text x="140" y="44" text-anchor="middle" font-family="Share Tech Mono" font-size="8" fill="#00ff88" opacity=".8">NERDQAXE++</text>
+        <line x1="42" y1="58" x2="210" y2="58" stroke="#00ff88" stroke-width="1" opacity=".6"/>
+        <line x1="42" y1="73" x2="190" y2="73" stroke="#00ff88" stroke-width="1" opacity=".4"/>
+        <line x1="42" y1="88" x2="220" y2="88" stroke="#00ff88" stroke-width="1" opacity=".3"/>
+        <!-- Big heatsink across all 4 ASICs -->
+        <rect x="22" y="148" width="236" height="44" rx="2" stroke="#888" stroke-width="1" opacity=".7"/>
+        <!-- Fin lines -->
+        <line x1="38" y1="149" x2="38" y2="191" stroke="#888" stroke-width=".8" opacity=".5"/>
+        <line x1="54" y1="149" x2="54" y2="191" stroke="#888" stroke-width=".8" opacity=".5"/>
+        <line x1="70" y1="149" x2="70" y2="191" stroke="#888" stroke-width=".8" opacity=".5"/>
+        <line x1="86" y1="149" x2="86" y2="191" stroke="#888" stroke-width=".8" opacity=".5"/>
+        <line x1="102" y1="149" x2="102" y2="191" stroke="#888" stroke-width=".8" opacity=".5"/>
+        <line x1="118" y1="149" x2="118" y2="191" stroke="#888" stroke-width=".8" opacity=".5"/>
+        <line x1="134" y1="149" x2="134" y2="191" stroke="#888" stroke-width=".8" opacity=".5"/>
+        <line x1="150" y1="149" x2="150" y2="191" stroke="#888" stroke-width=".8" opacity=".5"/>
+        <line x1="166" y1="149" x2="166" y2="191" stroke="#888" stroke-width=".8" opacity=".5"/>
+        <line x1="182" y1="149" x2="182" y2="191" stroke="#888" stroke-width=".8" opacity=".5"/>
+        <line x1="198" y1="149" x2="198" y2="191" stroke="#888" stroke-width=".8" opacity=".5"/>
+        <line x1="214" y1="149" x2="214" y2="191" stroke="#888" stroke-width=".8" opacity=".5"/>
+        <line x1="230" y1="149" x2="230" y2="191" stroke="#888" stroke-width=".8" opacity=".5"/>
+        <line x1="246" y1="149" x2="246" y2="191" stroke="#888" stroke-width=".8" opacity=".5"/>
+        <!-- 4 ASIC chips -->
+        <!-- Chip 1 -->
+        <rect x="18" y="204" width="54" height="60" rx="3" stroke="#f7931a" stroke-width="1.4"/>
+        <text x="45" y="232" text-anchor="middle" font-family="Share Tech Mono" font-size="7" fill="#f7931a">BM</text>
+        <text x="45" y="244" text-anchor="middle" font-family="Share Tech Mono" font-size="7" fill="#f7931a">1370</text>
+        <!-- Chip 2 -->
+        <rect x="80" y="204" width="54" height="60" rx="3" stroke="#f7931a" stroke-width="1.4"/>
+        <text x="107" y="232" text-anchor="middle" font-family="Share Tech Mono" font-size="7" fill="#f7931a">BM</text>
+        <text x="107" y="244" text-anchor="middle" font-family="Share Tech Mono" font-size="7" fill="#f7931a">1370</text>
+        <!-- Chip 3 -->
+        <rect x="142" y="204" width="54" height="60" rx="3" stroke="#f7931a" stroke-width="1.4"/>
+        <text x="169" y="232" text-anchor="middle" font-family="Share Tech Mono" font-size="7" fill="#f7931a">BM</text>
+        <text x="169" y="244" text-anchor="middle" font-family="Share Tech Mono" font-size="7" fill="#f7931a">1370</text>
+        <!-- Chip 4 -->
+        <rect x="204" y="204" width="54" height="60" rx="3" stroke="#f7931a" stroke-width="1.4"/>
+        <text x="231" y="232" text-anchor="middle" font-family="Share Tech Mono" font-size="7" fill="#f7931a">BM</text>
+        <text x="231" y="244" text-anchor="middle" font-family="Share Tech Mono" font-size="7" fill="#f7931a">1370</text>
+        <!-- 4× label -->
+        <text x="140" y="198" text-anchor="middle" font-family="Share Tech Mono" font-size="8" fill="#f7931a" opacity=".5">4× ASIC</text>
+        <!-- Connections between chips -->
+        <line x1="72" y1="234" x2="80" y2="234" stroke="#f7931a" stroke-width=".8" opacity=".4"/>
+        <line x1="134" y1="234" x2="142" y2="234" stroke="#f7931a" stroke-width=".8" opacity=".4"/>
+        <line x1="196" y1="234" x2="204" y2="234" stroke="#f7931a" stroke-width=".8" opacity=".4"/>
+        <!-- Fan -->
+        <circle cx="140" cy="315" r="35" stroke="#888" stroke-width="1" opacity=".5"/>
+        <circle cx="140" cy="315" r="9" stroke="#888" stroke-width="1" opacity=".4"/>
+        <path d="M140 306 Q148 298 153 283" stroke="#888" stroke-width=".8" opacity=".4"/>
+        <path d="M149 315 Q157 307 170 303" stroke="#888" stroke-width=".8" opacity=".4"/>
+        <path d="M140 324 Q132 332 127 347" stroke="#888" stroke-width=".8" opacity=".4"/>
+        <path d="M131 315 Q123 323 110 327" stroke="#888" stroke-width=".8" opacity=".4"/>
+        <!-- Power connector XT30 -->
+        <rect x="105" y="360" width="70" height="18" rx="3" stroke="#888" stroke-width="1" opacity=".7"/>
+        <text x="140" y="373" text-anchor="middle" font-family="Share Tech Mono" font-size="7" fill="#888">XT30 12V</text>
+        <!-- ESP32-S3 -->
+        <rect x="22" y="133" width="50" height="14" rx="2" stroke="#58a6ff" stroke-width=".8" opacity=".6"/>
+        <text x="47" y="144" text-anchor="middle" font-family="Share Tech Mono" font-size="6" fill="#58a6ff" opacity=".7">ESP32-S3</text>
+      </g>
+
+      <!-- ── NERDOCTAXE ── -->
+      <g id="dev-3" opacity="0">
+        <!-- Board outline (widest/tallest) -->
+        <rect x="8" y="8" width="264" height="384" rx="10" stroke="#f7931a" stroke-width="2"/>
+        <!-- Corner accents -->
+        <line x1="8" y1="30" x2="28" y2="30" stroke="#f7931a" stroke-width="1" opacity=".4"/>
+        <line x1="252" y1="30" x2="272" y2="30" stroke="#f7931a" stroke-width="1" opacity=".4"/>
+        <!-- Display -->
+        <rect x="25" y="20" width="230" height="88" rx="4" stroke="#00ff88" stroke-width="1.2"/>
+        <text x="140" y="38" text-anchor="middle" font-family="Share Tech Mono" font-size="8" fill="#00ff88" opacity=".9">NERDOCTAXE GAMMA</text>
+        <line x1="40" y1="52" x2="230" y2="52" stroke="#00ff88" stroke-width="1" opacity=".6"/>
+        <line x1="40" y1="65" x2="200" y2="65" stroke="#00ff88" stroke-width="1" opacity=".4"/>
+        <line x1="40" y1="78" x2="215" y2="78" stroke="#00ff88" stroke-width="1" opacity=".3"/>
+        <!-- Heatsink row 1 -->
+        <rect x="14" y="128" width="252" height="36" rx="2" stroke="#aaa" stroke-width="1" opacity=".7"/>
+        <line x1="28" y1="129" x2="28" y2="163" stroke="#aaa" stroke-width=".8" opacity=".5"/>
+        <line x1="42" y1="129" x2="42" y2="163" stroke="#aaa" stroke-width=".8" opacity=".5"/>
+        <line x1="56" y1="129" x2="56" y2="163" stroke="#aaa" stroke-width=".8" opacity=".5"/>
+        <line x1="70" y1="129" x2="70" y2="163" stroke="#aaa" stroke-width=".8" opacity=".5"/>
+        <line x1="84" y1="129" x2="84" y2="163" stroke="#aaa" stroke-width=".8" opacity=".5"/>
+        <line x1="98" y1="129" x2="98" y2="163" stroke="#aaa" stroke-width=".8" opacity=".5"/>
+        <line x1="112" y1="129" x2="112" y2="163" stroke="#aaa" stroke-width=".8" opacity=".5"/>
+        <line x1="126" y1="129" x2="126" y2="163" stroke="#aaa" stroke-width=".8" opacity=".5"/>
+        <line x1="140" y1="129" x2="140" y2="163" stroke="#aaa" stroke-width=".8" opacity=".5"/>
+        <line x1="154" y1="129" x2="154" y2="163" stroke="#aaa" stroke-width=".8" opacity=".5"/>
+        <line x1="168" y1="129" x2="168" y2="163" stroke="#aaa" stroke-width=".8" opacity=".5"/>
+        <line x1="182" y1="129" x2="182" y2="163" stroke="#aaa" stroke-width=".8" opacity=".5"/>
+        <line x1="196" y1="129" x2="196" y2="163" stroke="#aaa" stroke-width=".8" opacity=".5"/>
+        <line x1="210" y1="129" x2="210" y2="163" stroke="#aaa" stroke-width=".8" opacity=".5"/>
+        <line x1="224" y1="129" x2="224" y2="163" stroke="#aaa" stroke-width=".8" opacity=".5"/>
+        <line x1="238" y1="129" x2="238" y2="163" stroke="#aaa" stroke-width=".8" opacity=".5"/>
+        <line x1="252" y1="129" x2="252" y2="163" stroke="#aaa" stroke-width=".8" opacity=".5"/>
+        <!-- ASICs row 1 (4 chips) -->
+        <rect x="14" y="172" width="54" height="52" rx="3" stroke="#f7931a" stroke-width="1.4"/>
+        <text x="41" y="198" text-anchor="middle" font-family="Share Tech Mono" font-size="6.5" fill="#f7931a">BM1370</text>
+        <rect x="76" y="172" width="54" height="52" rx="3" stroke="#f7931a" stroke-width="1.4"/>
+        <text x="103" y="198" text-anchor="middle" font-family="Share Tech Mono" font-size="6.5" fill="#f7931a">BM1370</text>
+        <rect x="138" y="172" width="54" height="52" rx="3" stroke="#f7931a" stroke-width="1.4"/>
+        <text x="165" y="198" text-anchor="middle" font-family="Share Tech Mono" font-size="6.5" fill="#f7931a">BM1370</text>
+        <rect x="200" y="172" width="54" height="52" rx="3" stroke="#f7931a" stroke-width="1.4"/>
+        <text x="227" y="198" text-anchor="middle" font-family="Share Tech Mono" font-size="6.5" fill="#f7931a">BM1370</text>
+        <!-- Chain lines row 1 -->
+        <line x1="68" y1="198" x2="76" y2="198" stroke="#f7931a" stroke-width=".8" opacity=".5"/>
+        <line x1="130" y1="198" x2="138" y2="198" stroke="#f7931a" stroke-width=".8" opacity=".5"/>
+        <line x1="192" y1="198" x2="200" y2="198" stroke="#f7931a" stroke-width=".8" opacity=".5"/>
+        <!-- Heatsink row 2 -->
+        <rect x="14" y="235" width="252" height="30" rx="2" stroke="#aaa" stroke-width="1" opacity=".6"/>
+        <line x1="28" y1="236" x2="28" y2="264" stroke="#aaa" stroke-width=".8" opacity=".4"/>
+        <line x1="48" y1="236" x2="48" y2="264" stroke="#aaa" stroke-width=".8" opacity=".4"/>
+        <line x1="68" y1="236" x2="68" y2="264" stroke="#aaa" stroke-width=".8" opacity=".4"/>
+        <line x1="88" y1="236" x2="88" y2="264" stroke="#aaa" stroke-width=".8" opacity=".4"/>
+        <line x1="108" y1="236" x2="108" y2="264" stroke="#aaa" stroke-width=".8" opacity=".4"/>
+        <line x1="128" y1="236" x2="128" y2="264" stroke="#aaa" stroke-width=".8" opacity=".4"/>
+        <line x1="148" y1="236" x2="148" y2="264" stroke="#aaa" stroke-width=".8" opacity=".4"/>
+        <line x1="168" y1="236" x2="168" y2="264" stroke="#aaa" stroke-width=".8" opacity=".4"/>
+        <line x1="188" y1="236" x2="188" y2="264" stroke="#aaa" stroke-width=".8" opacity=".4"/>
+        <line x1="208" y1="236" x2="208" y2="264" stroke="#aaa" stroke-width=".8" opacity=".4"/>
+        <line x1="228" y1="236" x2="228" y2="264" stroke="#aaa" stroke-width=".8" opacity=".4"/>
+        <line x1="248" y1="236" x2="248" y2="264" stroke="#aaa" stroke-width=".8" opacity=".4"/>
+        <!-- ASICs row 2 (4 chips) -->
+        <rect x="14" y="273" width="54" height="52" rx="3" stroke="#f7931a" stroke-width="1.4"/>
+        <text x="41" y="299" text-anchor="middle" font-family="Share Tech Mono" font-size="6.5" fill="#f7931a">BM1370</text>
+        <rect x="76" y="273" width="54" height="52" rx="3" stroke="#f7931a" stroke-width="1.4"/>
+        <text x="103" y="299" text-anchor="middle" font-family="Share Tech Mono" font-size="6.5" fill="#f7931a">BM1370</text>
+        <rect x="138" y="273" width="54" height="52" rx="3" stroke="#f7931a" stroke-width="1.4"/>
+        <text x="165" y="299" text-anchor="middle" font-family="Share Tech Mono" font-size="6.5" fill="#f7931a">BM1370</text>
+        <rect x="200" y="273" width="54" height="52" rx="3" stroke="#f7931a" stroke-width="1.4"/>
+        <text x="227" y="299" text-anchor="middle" font-family="Share Tech Mono" font-size="6.5" fill="#f7931a">BM1370</text>
+        <!-- Chain lines row 2 -->
+        <line x1="68" y1="299" x2="76" y2="299" stroke="#f7931a" stroke-width=".8" opacity=".5"/>
+        <line x1="130" y1="299" x2="138" y2="299" stroke="#f7931a" stroke-width=".8" opacity=".5"/>
+        <line x1="192" y1="299" x2="200" y2="299" stroke="#f7931a" stroke-width=".8" opacity=".5"/>
+        <!-- Chain between rows -->
+        <line x1="41" y1="224" x2="41" y2="273" stroke="#f7931a" stroke-width=".8" opacity=".3"/>
+        <!-- 8× label -->
+        <text x="140" y="120" text-anchor="middle" font-family="Share Tech Mono" font-size="9" fill="#f7931a" opacity=".6">8× BM1370 ASIC</text>
+        <!-- Dual fans -->
+        <circle cx="82" cy="345" r="24" stroke="#888" stroke-width="1" opacity=".5"/>
+        <circle cx="82" cy="345" r="6" stroke="#888" stroke-width="1" opacity=".4"/>
+        <path d="M82 339 Q87 333 91 322" stroke="#888" stroke-width=".8" opacity=".4"/>
+        <path d="M88 345 Q94 339 105 336" stroke="#888" stroke-width=".8" opacity=".4"/>
+        <path d="M82 351 Q77 357 73 368" stroke="#888" stroke-width=".8" opacity=".4"/>
+        <path d="M76 345 Q70 351 59 354" stroke="#888" stroke-width=".8" opacity=".4"/>
+        <circle cx="198" cy="345" r="24" stroke="#888" stroke-width="1" opacity=".5"/>
+        <circle cx="198" cy="345" r="6" stroke="#888" stroke-width="1" opacity=".4"/>
+        <path d="M198 339 Q203 333 207 322" stroke="#888" stroke-width=".8" opacity=".4"/>
+        <path d="M204 345 Q210 339 221 336" stroke="#888" stroke-width=".8" opacity=".4"/>
+        <path d="M198 351 Q193 357 189 368" stroke="#888" stroke-width=".8" opacity=".4"/>
+        <path d="M192 345 Q186 351 175 354" stroke="#888" stroke-width=".8" opacity=".4"/>
+        <!-- XT60 power connector -->
+        <rect x="116" y="370" width="48" height="18" rx="3" stroke="#888" stroke-width="1.2" opacity=".8"/>
+        <text x="140" y="383" text-anchor="middle" font-family="Share Tech Mono" font-size="7" fill="#888">XT60 12V</text>
+        <!-- ESP32 -->
+        <rect x="20" y="114" width="50" height="12" rx="2" stroke="#58a6ff" stroke-width=".8" opacity=".6"/>
+        <text x="45" y="124" text-anchor="middle" font-family="Share Tech Mono" font-size="6" fill="#58a6ff" opacity=".7">ESP32-S3</text>
+      </g>
+
+    </svg>
+
+  </div>
+
+  <div class="hero-text">
+    <p class="section-tag">// Open Source Bitcoin Mining</p>
+    <h1>The <span class="accent">Nerd*</span><br>Ecosystem</h1>
+    <p class="lead">
+      From a tiny ESP32 learning device to an 8-ASIC powerhouse, all open source,
+      all community-driven, all displaying live stats on a color screen.
+      Built on the shoulders of the <a href="https://bitaxe.org" target="_blank" rel="noopener" style="color:var(--orange);text-decoration:none;border-bottom:1px solid rgba(247,147,26,.35)">Bitaxe project</a> and open-source ASIC knowledge.
+    </p>
+    <div class="hero-badges">
+      <span class="badge badge-orange">⚡ Open Hardware</span>
+      <span class="badge badge-green">● Open Source</span>
+      <span class="badge badge-blue">◈ 3,000+ GitHub Stars (all repos)</span>
+    </div>
+    <div class="cta-row">
+      <a href="#devices" class="btn btn-primary">Explore Devices</a>
+      <a href="https://discord.com/invite/osmu" target="_blank" rel="noopener" class="btn btn-outline-orange">Join Community</a>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <span class="stat-num">10</span>
+    <span class="stat-label">Device Variants</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">12 TH/s</span>
+    <span class="stat-label">Peak Hashrate</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">3,000+</span>
+    <span class="stat-label">GitHub Stars (all repos)</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">100%</span>
+    <span class="stat-label">Open Source</span>
+  </div>
+</div>
+
+<!-- NERDMINER INTRO -->
+<section id="about" class="reveal">
+  <div class="nm-section-header">
+    <div>
+      <div class="section-tag">// Start Here</div>
+      <div class="section-title"><span class="nm-verb" id="nmVerb">Play</span><br>with NerdMiner</div>
+      <p class="section-desc">The cheapest entry point into Bitcoin mining. <span class="nm-key-phrase">Not to earn rewards, but to truly understand what mining means</span> and experience it for yourself.</p>
+    </div>
+    <img src="Imagenes/NERDminer-150.webp" alt="NerdMiner" class="nm-section-logo">
+  </div>
+
+  <div class="nm-section">
+    <!-- LEFT: pillars + hw box -->
+    <div>
+      <div class="nm-pillars">
+        <div class="nm-pillar">
+          <div class="nm-pillar-icon">🎓</div>
+          <div class="nm-pillar-body">
+            <div class="nm-pillar-title">Learn by doing</div>
+            <div class="nm-pillar-text">Its goal isn't to mine a block. It's to teach you what mining actually means: SHA-256 proofs-of-work, difficulty targets, solo vs pool, all running live on your desk.</div>
+          </div>
+        </div>
+        <div class="nm-pillar">
+          <div class="nm-pillar-icon">🔌</div>
+          <div class="nm-pillar-body">
+            <div class="nm-pillar-title">Any ESP32 board</div>
+            <div class="nm-pillar-text">Works out of the box on 23+ ESP32-compatible boards. From a spare dev kit to a dedicated display, if it runs ESP32, it can run NerdMiner.</div>
+          </div>
+        </div>
+        <div class="nm-pillar">
+          <div class="nm-pillar-icon">⚡</div>
+          <div class="nm-pillar-body">
+            <div class="nm-pillar-title">Near-zero cost &amp; power</div>
+            <div class="nm-pillar-text">Under 5W consumption. A ~$10 dev board is all you need to start. No risk, no noise, no large upfront investment. Just a miner you can hold in your hand.</div>
+          </div>
+        </div>
+        <div class="nm-pillar">
+          <div class="nm-pillar-icon">🔓</div>
+          <div class="nm-pillar-body">
+            <div class="nm-pillar-title">Fully open source</div>
+            <div class="nm-pillar-text">Firmware, schematics, and PCB layouts, all public. Build it, fork it, learn from it, or use it in the classroom.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- How to guide -->
+      <div class="nm-quickstart">
+        <div class="nm-hw-label" style="margin-bottom:.75rem">How to build a Nerdminer</div>
+        <div class="nm-qs-steps">
+          <div class="nm-qs-step"><span class="nm-qs-num">01</span><span class="nm-qs-text">Grab an ESP32 board</span></div>
+          <div class="nm-qs-arrow">→</div>
+          <div class="nm-qs-step"><span class="nm-qs-num">02</span><span class="nm-qs-text">Flash the firmware</span></div>
+          <div class="nm-qs-arrow">→</div>
+          <div class="nm-qs-step"><span class="nm-qs-num">03</span><span class="nm-qs-text">Start mining</span></div>
+        </div>
+      </div>
+
+      <!-- Compatible boards box -->
+      <div class="nm-hw-box">
+        <div class="nm-hw-label">Compatible boards (sample)</div>
+        <div class="nm-hw-boards">
+          <span class="nm-hw-board">ESP32-S3 DevKit</span>
+          <span class="nm-hw-board">TTGO T-Display S3</span>
+          <span class="nm-hw-board">Lilygo T-QT Pro</span>
+          <span class="nm-hw-board">ESP32-2432S028R</span>
+          <span class="nm-hw-board">M5Stack Cardputer</span>
+          <span class="nm-hw-board">Lolin S3 Mini</span>
+          <span class="nm-hw-board">ESP32-S3-Box 3</span>
+          <span class="nm-hw-board nm-hw-board-more">+23 more</span>
+        </div>
+        <div class="nm-hw-label" style="margin-top:1rem;margin-bottom:.5rem">Resources</div>
+        <div class="nm-hw-btns">
+          <a class="nm-hw-btn btn-repo" href="https://github.com/BitMaker-hub/NerdMiner_v2" target="_blank" rel="noopener">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            Hardware list
+          </a>
+          <a class="nm-hw-btn btn-flash" href="https://flasher.bitronics.store" target="_blank" rel="noopener">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            Flasher
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: build photo -->
+    <div class="nm-right-col">
+      <div class="nm-build-img-wrap">
+        <img src="Imagenes/nerdminerBuild.png" alt="Building a NerdMiner" class="nm-build-img">
+      </div>
+    </div>
+  </div>
+
+  <!-- TESTIMONIALS: full width row -->
+  <div class="nm-testimonials-header">
+    <div class="section-tag">// Testimonials</div>
+    <p class="nm-testimonials-sub">What builders and educators say about NerdMiner</p>
+  </div>
+  <div class="nm-testimonials-row">
+    <div class="nm-tweet">
+      <div class="nm-tweet-text">
+        "We taught kids how Bitcoin mining works using NerdMiners in class. <em>Watching their faces when the display showed their first valid share was priceless.</em> This is what Bitcoin education looks like."
+      </div>
+      <div class="nm-tweet-author">
+        <span class="nm-tweet-handle">@NodeNationSV</span>
+        <a class="nm-tweet-link nm-tweet-via" href="https://x.com/NodeNationSV/status/1788031315406688483" target="_blank" rel="noopener">View on X ↗</a>
+      </div>
+    </div>
+
+    <div class="nm-tweet">
+      <div class="nm-tweet-text">
+        "I started with a cheap ESP32 board and NerdMiner. <em>Within an hour I understood difficulty adjustments, nonces, and why mining is hard</em> — better than any article I had read before."
+      </div>
+      <div class="nm-tweet-author">
+        <span class="nm-tweet-handle">Juan Cienfuegos</span>
+        <span class="nm-tweet-via">Community builder</span>
+      </div>
+    </div>
+
+    <div class="nm-tweet">
+      <div class="nm-tweet-text">
+        "If you want to understand Bitcoin mining from the ground up, <em>NerdMiner is the most approachable tool out there.</em> A working miner in your hands for under $15 — no excuses not to try."
+      </div>
+      <div class="nm-tweet-author">
+        <span class="nm-tweet-handle">D-Central Technologies</span>
+        <span class="nm-tweet-via">Mining hardware specialists</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEXT STEP BRIDGE -->
+<div class="next-step-bridge reveal">
+  <div class="nsb-inner">
+    <div class="nsb-logo-wrap">
+      <a href="https://github.com/BitMaker-hub/NerdMiner_v2" target="_blank" rel="noopener">
+        <img src="Imagenes/NERDminer-150.webp" alt="NerdMiner" class="nsb-logo">
+      </a>
+    </div>
+    <div class="nsb-body">
+      <div class="section-title">Ready to go <span style="color:var(--orange)">further?</span></div>
+      <p class="nsb-text">The Nerd* ecosystem has a full family of <strong>open-source ASIC miners</strong>, from 1 TH/s to 14 TH/s, built thanks to the pioneering work of the <a class="nsb-link" href="https://bitaxe.org" target="_blank" rel="noopener">Bitaxe project</a> and the open-source ASIC knowledge it brought to the community.</p>
+      <span class="nsb-arrow">↓</span>
+    </div>
+    <div class="nsb-logo-wrap">
+      <a href="https://bitaxe.org" target="_blank" rel="noopener">
+        <img src="Imagenes/Bitaxe-logo2.png" alt="Bitaxe" class="nsb-logo nsb-logo-bitaxe">
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- DEVICES -->
+<section id="devices" class="devices-section reveal">
+  <div class="section-tag">// Hardware</div>
+  <div class="section-title">All Devices</div>
+  <p class="section-desc">Every device is fully open source — schematics, PCB layouts (KiCad), and firmware included.</p>
+
+
+
+  <div class="devices-grid">
+
+    <!-- NerdMiner v2 -->
+    <div class="device-card" data-cat="no-asic" data-color="orange">
+      <div class="card-top-accent accent-orange"></div>
+      <div class="card-header">
+        <div class="card-title-wrap">
+          <div class="card-title">NerdMiner v2</div>
+        </div>
+        <span class="card-chip-badge no-asic-badge">No ASIC</span>
+      </div>
+      <div style="padding:.75rem 1.25rem 0"><span class="card-chip-badge" style="color:var(--green);border-color:rgba(0,255,136,.25);background:rgba(0,255,136,.06)">CPU mining · ESP32-S3</span></div>
+      <div class="card-body">
+        <div class="card-device-img"><img src="Imagenes/nerdminer.svg" alt="NerdMiner v2"></div>
+        <p class="card-desc">The original. An ESP32-S3 microcontroller doing SHA-256 solo mining with a full-color display. Educational, beautiful, and absurdly low power. Over 23 supported boards.</p>
+        <div class="specs-grid">
+          <div class="spec"><span class="spec-label">Chip</span><span class="spec-val">ESP32-S3</span></div>
+          <div class="spec"><span class="spec-label">Hashrate</span><span class="spec-val hi">~250 KH/s</span></div>
+          <div class="spec"><span class="spec-label">Power</span><span class="spec-val">~20W (5V/6A)</span></div>
+          <div class="spec"><span class="spec-label">Display</span><span class="spec-val">Color LCD</span></div>
+        </div>
+        <div class="card-revisions"><div class="card-revisions-label">Last Firmware</div><div class="rev-tags"><a href="https://github.com/BitMaker-hub/NerdMiner_v2" target="_blank" class="rev-tag rev-link">v1.8.3 ↗</a></div></div>
+        <div class="card-resources">
+          <div class="card-revisions-label">Resources</div>
+          <div class="card-links">
+            <a href="https://pool.nerdminers.org" target="_blank" class="card-link">⛏ Pool</a>
+            <a href="https://flasher.bitronics.store" target="_blank" class="card-link">⚡ Flasher</a>
+          </div>
+        </div>
+        <div class="card-lead-bottom"><span class="card-lead-label">Lead Dev</span><a href="https://github.com/BitMaker-hub" target="_blank">BitMaker ↗</a></div>
+      </div>
+    </div>
+
+    <!-- NerdNOS -->
+    <div class="device-card" data-cat="asic" data-color="orange">
+      <div class="card-top-accent accent-orange"></div>
+      <div class="card-header">
+        <div class="card-title-wrap">
+          <div class="card-title">NerdNOS</div>
+        </div>
+        <span class="card-chip-badge asic-badge">ASIC</span>
+      </div>
+      <div style="padding:.75rem 1.25rem 0"><span class="card-chip-badge" style="color:var(--orange);border-color:rgba(247,147,26,.25);background:rgba(247,147,26,.06)">BM1397 · ESP32</span></div>
+      <div class="card-body">
+        <div class="card-device-img"><img src="Imagenes/nerdnos.svg" alt="NerdNOS"></div>
+        <p class="card-desc">The bridge between NerdMiner and full ASIC mining. Powered by a BM1397 chip, it delivers real hashrate in a compact, USB-C desktop form factor — still educational, now serious.</p>
+        <div class="specs-grid">
+          <div class="spec"><span class="spec-label">Chip</span><span class="spec-val">BM1397</span></div>
+          <div class="spec"><span class="spec-label">Hashrate</span><span class="spec-val hi">80–130 GH/s</span></div>
+          <div class="spec"><span class="spec-label">Power</span><span class="spec-val">7–8W USB-C</span></div>
+          <div class="spec"><span class="spec-label">Display</span><span class="spec-val">Color LCD</span></div>
+        </div>
+        <div class="card-revisions">
+          <div class="card-revisions-label">HW Revisions</div>
+          <div class="rev-tags">
+            <a href="https://github.com/WantClue/NerdNOS" target="_blank" class="rev-tag rev-link">Rev 1.0 ↗</a>
+          </div>
+        </div>
+        <div class="card-resources">
+          <div class="card-revisions-label">Resources</div>
+          <div class="card-links">
+            <a href="https://github.com/WantClue/NerdMiner_v2/tree/nerdnos" target="_blank" class="card-link">Firmware</a>
+          </div>
+        </div>
+        <div class="card-lead-bottom"><span class="card-lead-label">Lead Dev</span><a href="https://github.com/WantClue" target="_blank">WantClue ↗</a></div>
+      </div>
+    </div>
+
+    <!-- NerdAxe (Ultra / Gamma) -->
+    <div class="device-card" data-cat="asic" data-color="yellow">
+      <div class="card-top-accent accent-yellow"></div>
+      <div class="card-header">
+        <div class="card-title">NerdAxe</div>
+        <div class="variant-selector">
+          <button class="variant-btn" onclick="setVariant('nerdaxe','ultra',this)">Ultra</button>
+          <button class="variant-btn active" onclick="setVariant('nerdaxe','gamma',this)">Gamma</button>
+        </div>
+      </div>
+      <div style="padding:.75rem 1.25rem 0"><span class="card-chip-badge asic-badge" id="nerdaxe-chipbadge">BM1370</span></div>
+      <div class="card-body">
+        <div class="card-device-img"><img src="Imagenes/Nerdaxe.svg" alt="NerdAxe"></div>
+        <p class="card-desc" id="nerdaxe-desc">Single BM1370 chip from the Antminer S21 Pro generation. Over 2× the hashrate of the Ultra at similar power. Same beautiful display, same compact form.</p>
+        <div class="specs-grid">
+          <div class="spec"><span class="spec-label">ASIC</span><span class="spec-val" id="nerdaxe-asic">1× BM1370</span></div>
+          <div class="spec"><span class="spec-label">Hashrate</span><span class="spec-val hi" id="nerdaxe-hash">1.2 TH/s</span></div>
+          <div class="spec"><span class="spec-label">Power</span><span class="spec-val" id="nerdaxe-power">~20W (5V/4A)</span></div>
+          <div class="spec"><span class="spec-label">Display</span><span class="spec-val">T-Display S3</span></div>
+        </div>
+        <div id="nerdaxe-revisions"><div class="card-revisions"><div class="card-revisions-label">HW Revisions</div><div class="rev-tags"><a href="https://github.com/BitMaker-hub/NerdAxe" target="_blank" class="rev-tag rev-link">Rev 2.3 ↗</a></div></div></div>
+        <div class="card-resources">
+          <div class="card-revisions-label">Resources</div>
+          <div class="card-links">
+            <a href="https://github.com/shufps/ESP-Miner-NerdQAxePlus" target="_blank" class="card-link">NerdOS FW</a>
+            <div class="flasher-wrap">
+              <button class="card-link flasher-btn" onclick="toggleFlasher(this)">⚡ Flasher ▾</button>
+              <div class="flasher-menu">
+                <a href="https://shufps.github.io/nerdqaxe-web-flasher/" target="_blank" class="flasher-item">Nerd*axe Web Flasher</a>
+                <a href="https://flasher.bitronics.store/" target="_blank" class="flasher-item">Bitronics Flasher</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-lead-bottom"><span class="card-lead-label">Lead Dev</span><a href="https://github.com/BitMaker-hub" target="_blank">BitMaker ↗</a></div>
+      </div>
+    </div>
+
+    <!-- NerdQaxe (+ / ++) -->
+    <div class="device-card" data-cat="asic" data-color="purple">
+      <div class="card-top-accent accent-purple"></div>
+      <div class="card-header">
+        <div class="card-title">NerdQaxe</div>
+        <div class="variant-selector">
+          <button class="variant-btn" onclick="setVariant('nerdqaxe','plus',this)">+</button>
+          <button class="variant-btn active" onclick="setVariant('nerdqaxe','plusplus',this)">++</button>
+        </div>
+      </div>
+      <div style="padding:.75rem 1.25rem 0"><span class="card-chip-badge asic-badge" id="nerdqaxe-chipbadge">4× BM1370</span></div>
+      <div class="card-body">
+        <div class="card-device-img"><img src="Imagenes/NerdQaxe_1.svg" alt="NerdQaxe"></div>
+        <p class="card-desc" id="nerdqaxe-desc">Upgraded to BM1370 chips from the S21 Pro. Nearly double the hashrate of the NerdQaxe+ with a dual-fan cooling system and spring-mounted heatsink. Rev 6.1.</p>
+        <div class="specs-grid">
+          <div class="spec"><span class="spec-label">ASIC</span><span class="spec-val" id="nerdqaxe-asic">4× BM1370</span></div>
+          <div class="spec"><span class="spec-label">Hashrate</span><span class="spec-val hi" id="nerdqaxe-hash">4.8–6 TH/s</span></div>
+          <div class="spec"><span class="spec-label">Power</span><span class="spec-val" id="nerdqaxe-power">70.6W (XT30)</span></div>
+          <div class="spec"><span class="spec-label">Efficiency</span><span class="spec-val" id="nerdqaxe-eff">14.66 J/TH</span></div>
+        </div>
+        <div id="nerdqaxe-revisions"><div class="card-revisions"><div class="card-revisions-label">HW Revisions</div><div class="rev-tags"><a href="https://github.com/shufps/qaxe" target="_blank" class="rev-tag rev-link">Rev 5.1.1 ↗</a><a href="https://github.com/benjamin-wilson/qaxe" target="_blank" class="rev-tag rev-link">Variant 6.1 ↗</a></div></div></div>
+        <div class="card-resources">
+          <div class="card-revisions-label">Resources</div>
+          <div class="card-links">
+            <a href="https://github.com/shufps/ESP-Miner-NerdQAxePlus" target="_blank" class="card-link">NerdOS FW</a>
+            <div class="flasher-wrap">
+              <button class="card-link flasher-btn" onclick="toggleFlasher(this)">⚡ Flasher ▾</button>
+              <div class="flasher-menu">
+                <a href="https://shufps.github.io/nerdqaxe-web-flasher/" target="_blank" class="flasher-item">Nerd*axe Web Flasher</a>
+                <a href="https://flasher.bitronics.store/" target="_blank" class="flasher-item">Bitronics Flasher</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-lead-bottom"><span class="card-lead-label">Lead Dev</span><a href="https://github.com/shufps" target="_blank">Pmaux ↗</a></div>
+      </div>
+    </div>
+
+    <!-- NerdQX -->
+    <div class="device-card" data-cat="asic" data-color="blue">
+      <div class="card-top-accent accent-blue"></div>
+      <div class="card-header">
+        <div class="card-title">NerdQX</div>
+      </div>
+      <div style="padding:.75rem 1.25rem 0"><span class="card-chip-badge asic-badge">4× BM1370</span></div>
+      <div class="card-body">
+        <div class="card-device-img"><img src="Imagenes/NerdQX.svg" alt="NerdQX"></div>
+        <p class="card-desc">4× BM1370 redesigned from scratch. Per-ASIC temperature sensors, increased copper ratio, XT60 connector and up to 3-fan or AIO liquid cooling support. Built for overclocking.</p>
+        <div class="specs-grid">
+          <div class="spec"><span class="spec-label">ASIC</span><span class="spec-val">4× BM1370</span></div>
+          <div class="spec"><span class="spec-label">Hashrate</span><span class="spec-val hi">6–8 TH/s</span></div>
+          <div class="spec"><span class="spec-label">Power</span><span class="spec-val">~150W XT60</span></div>
+          <div class="spec"><span class="spec-label">Cooling</span><span class="spec-val">3× PWM / AIO</span></div>
+        </div>
+        <div class="card-revisions"><div class="card-revisions-label">HW Revisions</div><div class="rev-tags"><a href="https://github.com/IxTechCrypto/NerdQX" target="_blank" class="rev-tag rev-link">Rev 1.0 ↗</a></div></div>
+        <div class="card-resources">
+          <div class="card-revisions-label">Resources</div>
+          <div class="card-links">
+            <a href="https://github.com/shufps/ESP-Miner-NerdQAxePlus" target="_blank" class="card-link">NerdOS FW</a>
+            <div class="flasher-wrap">
+              <button class="card-link flasher-btn" onclick="toggleFlasher(this)">⚡ Flasher ▾</button>
+              <div class="flasher-menu">
+                <a href="https://shufps.github.io/nerdqaxe-web-flasher/" target="_blank" class="flasher-item">Nerd*axe Web Flasher</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-lead-bottom"><span class="card-lead-label">Lead Dev</span><a href="https://github.com/IxTechCrypto" target="_blank">IxTechCrypto ↗</a></div>
+      </div>
+    </div>
+
+    <!-- NerdOctaxe (Plus / Gamma) -->
+    <div class="device-card" data-cat="asic" data-color="green">
+      <div class="card-top-accent accent-green"></div>
+      <div class="card-header">
+        <div class="card-title">NerdOctaxe</div>
+        <div class="variant-selector">
+          <button class="variant-btn" onclick="setVariant('nerdoctaxe','plus',this)">Plus</button>
+          <button class="variant-btn active" onclick="setVariant('nerdoctaxe','gamma',this)">Gamma</button>
+        </div>
+      </div>
+      <div style="padding:.75rem 1.25rem 0"><span class="card-chip-badge asic-badge" id="nerdoctaxe-chipbadge">8× BM1370</span></div>
+      <div class="card-body">
+        <div class="card-device-img"><img src="Imagenes/octaxe.svg" alt="NerdOctaxe"></div>
+        <p class="card-desc" id="nerdoctaxe-desc">The flagship. Eight BM1370 chips, 6-phase buck converter, dual Thermalright AXP90 heatsinks. Open PCB design for custom cooling. Requires expert soldering skills.</p>
+        <div class="specs-grid">
+          <div class="spec"><span class="spec-label">ASIC</span><span class="spec-val" id="nerdoctaxe-asic">8× BM1370</span></div>
+          <div class="spec"><span class="spec-label">Hashrate</span><span class="spec-val hi" id="nerdoctaxe-hash">~9.6–12 TH/s</span></div>
+          <div class="spec"><span class="spec-label">Power</span><span class="spec-val" id="nerdoctaxe-power">~200W (XT60)</span></div>
+          <div class="spec"><span class="spec-label">Heatsinks</span><span class="spec-val" id="nerdoctaxe-cool">2× AXP90</span></div>
+        </div>
+        <div id="nerdoctaxe-revisions"><div class="card-revisions"><div class="card-revisions-label">HW Revisions</div><div class="rev-tags"><span class="rev-tag">Rev 2.6 — 9.6 TH/s</span><a href="https://github.com/BitMaker-hub/NerdOCTAXE-Gamma" target="_blank" class="rev-tag rev-link">Rev 3.1 — 12 TH/s ↗</a><a href="https://github.com/Patsch91/NerdOCTAXE-Gamma" target="_blank" class="rev-tag rev-link">Rev 3.4 — 12 TH/s + temp ↗</a></div></div></div>
+        <div class="card-resources">
+          <div class="card-revisions-label">Resources</div>
+          <div class="card-links">
+            <a href="https://github.com/shufps/ESP-Miner-NerdQAxePlus" target="_blank" class="card-link">NerdOS FW</a>
+            <div class="flasher-wrap">
+              <button class="card-link flasher-btn" onclick="toggleFlasher(this)">⚡ Flasher ▾</button>
+              <div class="flasher-menu">
+                <a href="https://shufps.github.io/nerdqaxe-web-flasher/" target="_blank" class="flasher-item">Nerd*axe Web Flasher</a>
+                <a href="https://flasher.bitronics.store/" target="_blank" class="flasher-item">Bitronics Flasher</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-lead-bottom"><span class="card-lead-label">Lead Dev</span><a href="https://github.com/Patsch91" target="_blank">Puall ↗</a></div>
+      </div>
+    </div>
+
+    <!-- NerdEKO Gamma -->
+    <div class="device-card" data-cat="asic" data-color="red">
+      <div class="card-top-accent accent-red"></div>
+      <div class="card-header">
+        <div class="card-title">NerdEKO Gamma</div>
+      </div>
+      <div style="padding:.75rem 1.25rem 0"><span class="card-chip-badge asic-badge">12× BM1370</span></div>
+      <div class="card-body">
+        <div class="card-device-img"><img src="Imagenes/nerdEKO.svg" alt="NerdEKO Gamma"></div>
+        <p class="card-desc">Twelve BM1370 ASICs on a 6-layer PCB with 2oz copper. The most powerful board in the Nerd* ecosystem. Requires 12V/40A PSU and proper heatsinking — expert build.</p>
+        <div class="specs-grid">
+          <div class="spec"><span class="spec-label">ASIC</span><span class="spec-val">12× BM1370</span></div>
+          <div class="spec"><span class="spec-label">Hashrate</span><span class="spec-val hi">~14 TH/s</span></div>
+          <div class="spec"><span class="spec-label">Power</span><span class="spec-val">~230W (12V)</span></div>
+          <div class="spec"><span class="spec-label">PCB</span><span class="spec-val">6L · 2oz Cu</span></div>
+        </div>
+        <div class="card-revisions"><div class="card-revisions-label">HW Revisions</div><div class="rev-tags"><a href="https://github.com/phil31/NerdEKO-Gamma" target="_blank" class="rev-tag rev-link">Gamma ↗</a></div></div>
+        <div class="card-resources">
+          <div class="card-revisions-label">Resources</div>
+          <div class="card-links">
+            <a href="https://github.com/shufps/ESP-Miner-NerdQAxePlus" target="_blank" class="card-link">NerdOS FW</a>
+            <div class="flasher-wrap">
+              <button class="card-link flasher-btn" onclick="toggleFlasher(this)">⚡ Flasher ▾</button>
+              <div class="flasher-menu">
+                <a href="https://shufps.github.io/nerdqaxe-web-flasher/" target="_blank" class="flasher-item">Nerd*axe Web Flasher</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-lead-bottom"><span class="card-lead-label">Lead Dev</span><a href="https://github.com/phil31" target="_blank">phil31 ↗</a></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+
+<!-- NERD*OS -->
+<section id="firmware" class="nerdos-section reveal">
+  <div class="section-tag">// Shared Firmware</div>
+  <div class="section-title">Nerd<span style="color:var(--orange)">*</span>OS</div>
+  <p class="section-desc">All ASIC-based Nerd* devices run a common firmware stack based on ESP-Miner. One codebase, all devices.</p>
+  <div class="nerdos-grid">
+    <div>
+      <div class="os-feat-list" style="margin-top:0">
+        <div class="os-feat">Web dashboard — monitor hashrate, temperature, power and uptime from any browser on your network</div>
+        <div class="os-feat">Real-time WebSocket telemetry and REST API for integration with Grafana + InfluxDB</div>
+        <div class="os-feat">OTA firmware updates — no cables needed after initial flash</div>
+        <div class="os-feat">Live ASIC clock and voltage adjustment without reboot</div>
+        <div class="os-feat">Stratum protocol — connects to any standard solo mining pool</div>
+        <div class="os-feat">Fan PWM control via EMC2101, temperature-driven curves</div>
+        <div class="os-feat">Network swarm support — manage multiple devices together</div>
+        <div class="os-feat">One-click web flasher at <a href="https://shufps.github.io/nerdqaxe-web-flasher/" target="_blank" style="color:var(--orange)">Nerd*axe Web Flasher</a></div>
+      </div>
+      <div style="margin-top:2rem;display:flex;gap:.75rem;flex-wrap:wrap">
+        <a href="https://github.com/shufps/ESP-Miner-NerdQAxePlus" target="_blank" class="btn btn-primary">NerdOS Repo ↗</a>
+      </div>
+    </div>
+    <div class="nerdos-visual">
+      <div class="os-line"><span class="ok">● LATEST RELEASE</span></div>
+      <div class="os-line" style="margin-top:.5rem"><span class="key">version</span>: <span class="val">v1.0.36</span></div>
+      <div class="os-line"><span class="key">date</span>: <span class="val">2025-01-24</span></div>
+      <div class="os-line"><span class="key">repo</span>: <span class="val">shufps/ESP-Miner-NerdQAxePlus</span></div>
+      <div class="os-line" style="margin-top:.75rem;color:var(--dim);font-size:.75rem">── changelog ──────────────────────</div>
+      <div class="os-line" style="margin-top:.4rem"><span class="ok">+</span> TLS support for encrypted Stratum connections</div>
+      <div class="os-line"><span class="ok">+</span> Experimental dashboard redesign with improved charts</div>
+      <div class="os-line"><span class="ok">+</span> System logs panel in web UI</div>
+      <div class="os-line"><span class="ok">+</span> WebSocket stability fixes (web UI unavailability resolved)</div>
+      <div class="os-line"><span class="ok">+</span> ~20KB RAM saved — memory optimizations</div>
+      <div class="os-line"><span class="ok">+</span> Edge case bug fixes &amp; performance improvements</div>
+      <div class="os-line" style="margin-top:.75rem;color:var(--dim);font-size:.75rem">── supported boards ────────────────</div>
+      <div class="os-line" style="margin-top:.4rem"><span class="key">targets</span>: <span class="val">NerdAxe · NerdQaxe+ · NerdQaxe++</span></div>
+      <div class="os-line"><span class="key">        </span>  <span class="val">NerdOctaxe Plus · NerdOctaxe Gamma</span></div>
+      <div class="os-line" style="margin-top:.75rem">
+        <a href="https://github.com/shufps/ESP-Miner-NerdQAxePlus/releases/latest" target="_blank" style="color:var(--orange);text-decoration:none;font-size:.8rem">→ View full release notes on GitHub</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- POOL -->
+<section id="pool" class="reveal">
+  <div class="section-tag">// Community Pool</div>
+  <div class="section-title">NerdMiners Pool</div>
+  <p class="section-desc">A dedicated solo mining pool for NerdMiner devices — a place to learn, experiment, and maybe get lucky.</p>
+  <div class="pool-card">
+    <div class="pool-info">
+      <h3>pool.nerdminers.org</h3>
+      <p>The official pool for NerdMiner v2 devices. Designed to support the community of solo miners who are here to learn about Bitcoin mining mechanics. Low hashrate friendly — no minimum share difficulty.</p>
+      <span class="pool-url">stratum+tcp://pool.nerdminers.org:3333</span>
+    </div>
+    <a href="https://pool.nerdminers.org" target="_blank" class="btn btn-primary">Visit Pool ↗</a>
+  </div>
+  <p style="margin-top:1.25rem;font-size:.85rem;color:var(--dim)">
+    ASIC devices (NerdAxe, NerdQaxe, NerdOctaxe) can connect to any standard Stratum pool such as
+    <a href="https://public-pool.io" target="_blank" style="color:var(--blue)">public-pool.io</a>,
+    <a href="https://ckpool.org" target="_blank" style="color:var(--blue)">ckpool.org</a>, or your own node.
+  </p>
+</section>
+
+<!-- REPOS -->
+<section id="repos" class="reveal" style="background:rgba(13,17,23,.4)">
+  <div class="section-tag">// Open Source</div>
+  <div class="section-title">All Repositories</div>
+  <p class="section-desc">Every schematic, PCB layout, and line of firmware is open source. Fork it, build it, improve it.</p>
+  <div class="repos-grid">
+    <a href="https://github.com/BitMaker-hub/NerdMiner_v2" target="_blank" class="repo-card">
+      <span class="repo-name">BitMaker-hub / NerdMiner_v2</span>
+      <p class="repo-desc">ESP32 solo Bitcoin miner firmware with color display support. 23+ supported boards.</p>
+      <div class="repo-meta">
+        <span class="repo-lang"><span style="background:#e37933"></span>C</span>
+        <span class="repo-stars">★ 2,632</span>
+      </div>
+    
+      <img class="repo-card-img" src="Imagenes/nerdminer.svg" alt="">
+    </a>
+    <a href="https://github.com/WantClue/NerdNOS" target="_blank" class="repo-card">
+      <span class="repo-name">WantClue / NerdNOS</span>
+      <p class="repo-desc">NerdMiner v2 fork with BM1397 ASIC support. 80–130 GH/s solo Bitcoin miner with USB-C power.</p>
+      <div class="repo-meta">
+        <span class="repo-lang"><span style="background:#e37933"></span>KiCad</span>
+        <span class="repo-stars">★ —</span>
+      </div>
+      <img class="repo-card-img" src="Imagenes/nerdnos.svg" alt="">
+    </a>
+    <a href="https://github.com/BitMaker-hub/NerdAxe" target="_blank" class="repo-card">
+      <span class="repo-name">BitMaker-hub / NerdAxe</span>
+      <p class="repo-desc">KiCad hardware design for NerdAxe (BM1366/BM1370). Schematics + PCB layout.</p>
+      <div class="repo-meta">
+        <span class="repo-lang"><span style="background:#e37933"></span>KiCad</span>
+        <span class="repo-stars">★ 167</span>
+      </div>
+    
+      <img class="repo-card-img" src="Imagenes/Nerdaxe.svg" alt="">
+    </a>
+    <a href="https://github.com/shufps/ESP-Miner-NerdQAxePlus" target="_blank" class="repo-card repo-card-featured">
+      <div class="repo-featured-badge">Nerd<span style="color:var(--orange)">*</span>OS</div>
+      <span class="repo-name">shufps / ESP-Miner-NerdQAxePlus</span>
+      <p class="repo-desc">NerdOS — shared firmware for NerdQaxe and NerdOctaxe. 75+ releases, Grafana &amp; InfluxDB support, web dashboard.</p>
+      <div class="repo-meta">
+        <span class="repo-lang"><span style="background:#e37933"></span>C</span>
+        <span class="repo-stars">★ 191</span>
+      </div>
+    </a>
+    <a href="https://github.com/shufps/qaxe" target="_blank" class="repo-card">
+      <span class="repo-name">shufps / qaxe</span>
+      <p class="repo-desc">NerdQaxe++ hardware revisions (BM1370). Rev 5.1.1 — original quad-ASIC BM1370 design.</p>
+      <div class="repo-meta">
+        <span class="repo-lang"><span style="background:#e37933"></span>KiCad</span>
+        <span class="repo-stars">Community</span>
+      </div>
+    
+      <img class="repo-card-img" src="Imagenes/NerdQaxe_1.svg" alt="">
+    </a>
+    <a href="https://github.com/IxTechCrypto/NerdQX" target="_blank" class="repo-card">
+      <span class="repo-name">IxTechCrypto / NerdQX</span>
+      <p class="repo-desc">4× BM1370 redesign with per-ASIC temp sensors, XT60, up to 3-fan or AIO cooling. Built for overclocking. NerdOS compatible.</p>
+      <div class="repo-meta">
+        <span class="repo-lang"><span style="background:#e37933"></span>KiCad</span>
+        <span class="repo-stars">Community</span>
+      </div>
+      <img class="repo-card-img" src="Imagenes/NerdQX.svg" alt="">
+    </a>
+    <a href="https://github.com/BitMaker-hub/NerdOCTAXE-Gamma" target="_blank" class="repo-card">
+      <span class="repo-name">BitMaker-hub / NerdOCTAXE-Gamma <span style="color:var(--orange);font-size:.8em">Rev 3.1</span></span>
+      <p class="repo-desc">8× BM1370, 12 TH/s. 6-phase buck converter, dual Thermalright AXP90 heatsinks, open PCB for custom cooling.</p>
+      <div class="repo-meta">
+        <span class="repo-lang"><span style="background:#e37933"></span>KiCad</span>
+        <span class="repo-stars">★ 8</span>
+      </div>
+    
+      <img class="repo-card-img" src="Imagenes/octaxe.svg" alt="">
+    </a>
+    <a href="https://github.com/Patsch91/NerdOCTAXE-Plus" target="_blank" class="repo-card">
+      <span class="repo-name">Patsch91 / NerdOCTAXE-Plus</span>
+      <p class="repo-desc">8× BM1368 NerdOctaxe Plus variant. 6-layer PCB, 3-phase buck, aluminum enclosure.</p>
+      <div class="repo-meta">
+        <span class="repo-lang"><span style="background:#e37933"></span>KiCad</span>
+        <span class="repo-stars">Community</span>
+      </div>
+    
+      <img class="repo-card-img" src="Imagenes/octaxe.svg" alt="">
+    </a>
+    <a href="https://github.com/benjamin-wilson/qaxe" target="_blank" class="repo-card">
+      <span class="repo-name">benjamin-wilson / qaxe</span>
+      <p class="repo-desc">NerdQaxe++ Variant 6.1 — BM1370, dual-fan cooling, spring-mounted heatsink.</p>
+      <div class="repo-meta">
+        <span class="repo-lang"><span style="background:#e37933"></span>KiCad</span>
+        <span class="repo-stars">Community</span>
+      </div>
+    
+      <img class="repo-card-img" src="Imagenes/NerdQaxe_1.svg" alt="">
+    </a>
+    <a href="https://github.com/Patsch91/NerdOCTAXE-Gamma" target="_blank" class="repo-card">
+      <span class="repo-name">Patsch91 / NerdOCTAXE-Gamma</span>
+      <p class="repo-desc">NerdOctaxe Gamma Rev 3.4 — 8× BM1370, 12 TH/s, on-chip temperature sensors.</p>
+      <div class="repo-meta">
+        <span class="repo-lang"><span style="background:#e37933"></span>KiCad</span>
+        <span class="repo-stars">Community</span>
+      </div>
+    
+      <img class="repo-card-img" src="Imagenes/octaxe.svg" alt="">
+    </a>
+    <a href="https://github.com/phil31/NerdEKO-Gamma" target="_blank" class="repo-card">
+      <span class="repo-name">phil31 / NerdEKO-Gamma</span>
+      <p class="repo-desc">12× BM1370, ~14 TH/s. 6-layer PCB, 2oz copper, 12V/40A PSU. The most powerful board in the Nerd* ecosystem.</p>
+      <div class="repo-meta">
+        <span class="repo-lang"><span style="background:#e37933"></span>KiCad</span>
+        <span class="repo-stars">Community</span>
+      </div>
+      <img class="repo-card-img" src="Imagenes/nerdEKO.svg" alt="">
+    </a>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Nerd<span>*</span> Ecosystem</div>
+  <ul class="footer-links">
+    <li><a href="https://github.com/BitMaker-hub" target="_blank">GitHub</a></li>
+    <li><a href="https://pool.nerdminers.org" target="_blank">Pool</a></li>
+    <li><a href="https://flasher.bitronics.store" target="_blank">Flasher</a></li>
+    <li><a href="https://bitronics.store" target="_blank">Bitronics</a></li>
+  </ul>
+  <span class="footer-copy">Open Source · CERN-OHL-S-2.0 · GPL-3.0 · Built by <a href="https://github.com/BitMaker-hub" target="_blank" style="color:var(--orange);text-decoration:none">@BitMaker-hub</a> &amp; Community</span>
+</footer>
+
+<script>
+// ── VARIANT SELECTOR ──
+const VARIANTS = {
+  nerdaxe: {
+    ultra: {
+      chipBadge:'BM1366', asic:'1× BM1366', hash:'0.5 TH/s', power:'~15W (5V/3A)',
+      desc:'Entry-level ASIC upgrade. Same NerdMiner display form factor on a single BM1366 chip. The bridge between the ESP32 world and real ASIC mining.',
+      revisions:[
+        { rev:'HW Rev 1.1', url:'https://github.com/BitMaker-hub/NerdAxe' }
+      ]
+    },
+    gamma: {
+      chipBadge:'BM1370', asic:'1× BM1370', hash:'1.2 TH/s', power:'~20W (5V/4A)',
+      desc:'Single BM1370 chip from the Antminer S21 Pro generation. Over 2× the hashrate of the Ultra. Same beautiful display, same compact form.',
+      revisions:[
+        { rev:'HW Rev 2.3', url:'https://github.com/BitMaker-hub/NerdAxe' }
+      ]
+    }
+  },
+  nerdqaxe: {
+    plus: {
+      chipBadge:'4× BM1368', asic:'4× BM1368', hash:'2.4 TH/s', power:'55W (XT30 12V)', eff:'22.9 J/TH',
+      hw:'https://github.com/shufps/qaxe',
+      desc:'Four BM1368 chips on a standalone board with integrated display. No external PC needed. Stable generation with buck converter running 10°C cooler.',
+      revisions:[
+        { rev:'HW Rev 5.1.1', url:'https://github.com/shufps/qaxe' }
+      ]
+    },
+    plusplus: {
+      chipBadge:'4× BM1370', asic:'4× BM1370', hash:'4.8–6 TH/s', power:'70.6W (XT30)', eff:'14.66 J/TH',
+      hw:'https://github.com/benjamin-wilson/qaxe',
+      desc:'Upgraded to BM1370 chips from the S21 Pro. Nearly double the hashrate of the NerdQaxe+ with a dual-fan cooling system and spring-mounted heatsink.',
+      revisions:[
+        { rev:'Rev 5.1.1', url:'https://github.com/shufps/qaxe' },
+        { rev:'Variant 6.1', url:'https://github.com/benjamin-wilson/qaxe' }
+      ]
+    }
+  },
+  nerdoctaxe: {
+    plus: {
+      chipBadge:'8× BM1368', asic:'8× BM1368', hash:'~5 TH/s', power:'~100W (XT60)', cool:'2× 80mm fans',
+      hw:'https://github.com/Patsch91/NerdOCTAXE-Plus',
+      desc:'Eight BM1368 chips on a 6-layer PCB with dual 80mm fans and aluminum enclosure. 3-phase buck converter, InfluxDB + Grafana monitoring. Advanced build.',
+      revisions:[
+        { rev:'HW Rev 1.0', url:'https://github.com/Patsch91/NerdOCTAXE-Plus' }
+      ]
+    },
+    gamma: {
+      chipBadge:'8× BM1370', asic:'8× BM1370', hash:'~9.6–12 TH/s', power:'~200W (XT60)', cool:'2× AXP90',
+      hw:'https://github.com/BitMaker-hub/NerdOCTAXE-Gamma',
+      desc:'The flagship. Eight BM1370 chips, 6-phase buck converter, dual Thermalright AXP90 heatsinks. Open PCB design for custom cooling. Requires expert soldering skills.',
+      revisions:[
+        { rev:'Rev 2.6 — 9.6 TH/s', url:null },
+        { rev:'Rev 3.1 — 12 TH/s', url:'https://github.com/BitMaker-hub/NerdOCTAXE-Gamma' },
+        { rev:'Rev 3.4 — 12 TH/s + temp sensors', url:'https://github.com/Patsch91/NerdOCTAXE-Gamma' }
+      ]
+    }
+  }
+};
+function renderRevTags(revisions) {
+  if (!revisions || !revisions.length) return '';
+  const tags = revisions.map(r =>
+    r.url
+      ? `<a href="${r.url}" target="_blank" class="rev-tag rev-link">${r.rev} ↗</a>`
+      : `<span class="rev-tag">${r.rev}</span>`
+  ).join('');
+  return `<div class="card-revisions"><div class="card-revisions-label">HW Revisions</div><div class="rev-tags">${tags}</div></div>`;
+}
+function setVariant(family, variant, btn) {
+  btn.closest('.variant-selector').querySelectorAll('.variant-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const d = VARIANTS[family][variant];
+  if (family === 'nerdaxe') {
+    document.getElementById('nerdaxe-asic').textContent  = d.asic;
+    document.getElementById('nerdaxe-hash').textContent  = d.hash;
+    document.getElementById('nerdaxe-power').textContent = d.power;
+    document.getElementById('nerdaxe-desc').textContent  = d.desc;
+    document.getElementById('nerdaxe-revisions').innerHTML = renderRevTags(d.revisions);
+    document.getElementById('nerdaxe-chipbadge').textContent = d.chipBadge;
+  } else if (family === 'nerdqaxe') {
+    document.getElementById('nerdqaxe-asic').textContent  = d.asic;
+    document.getElementById('nerdqaxe-hash').textContent  = d.hash;
+    document.getElementById('nerdqaxe-power').textContent = d.power;
+    document.getElementById('nerdqaxe-eff').textContent   = d.eff;
+    document.getElementById('nerdqaxe-desc').textContent  = d.desc;
+    document.getElementById('nerdqaxe-hwlink').href       = d.hw;
+    document.getElementById('nerdqaxe-revisions').innerHTML = renderRevTags(d.revisions);
+    document.getElementById('nerdqaxe-chipbadge').textContent = d.chipBadge;
+  } else if (family === 'nerdoctaxe') {
+    document.getElementById('nerdoctaxe-asic').textContent  = d.asic;
+    document.getElementById('nerdoctaxe-hash').textContent  = d.hash;
+    document.getElementById('nerdoctaxe-power').textContent = d.power;
+    document.getElementById('nerdoctaxe-cool').textContent  = d.cool;
+    document.getElementById('nerdoctaxe-desc').textContent  = d.desc;
+    document.getElementById('nerdoctaxe-hwlink').href       = d.hw;
+    document.getElementById('nerdoctaxe-revisions').innerHTML = renderRevTags(d.revisions);
+    document.getElementById('nerdoctaxe-chipbadge').textContent = d.chipBadge;
+  }
+}
+
+// ── DEVICE ANIMATION ──
+const devices = [
+  { id: 'dev-0', name: 'NerdMiner v2', sub: 'ESP32-S3 · No ASIC · &lt;1W · Educational' },
+  { id: 'dev-1', name: 'NerdAxe Gamma', sub: '1× BM1370 · 1.2 TH/s · ~25W' },
+  { id: 'dev-2', name: 'NerdQaxe++', sub: '4× BM1370 · 4.82 TH/s · 70.6W' },
+  { id: 'dev-3', name: 'NerdOctaxe Gamma', sub: '8× BM1370 · 9.6 TH/s · ~150W' },
+];
+let cur = 0;
+const svg = document.getElementById('device-svg');
+const nameEl = document.getElementById('device-name');
+const subEl = document.getElementById('device-sub');
+
+function fadeDevice(idx, inOut, cb) {
+  const g = document.getElementById(devices[idx].id);
+  const start = inOut === 'in' ? 0 : 1;
+  const end = inOut === 'in' ? 1 : 0;
+  const dur = 600;
+  const t0 = performance.now();
+  function tick(t) {
+    const p = Math.min((t - t0) / dur, 1);
+    const ease = p < 0.5 ? 2*p*p : -1+(4-2*p)*p;
+    g.setAttribute('opacity', start + (end - start) * ease);
+    if (p < 1) requestAnimationFrame(tick);
+    else if (cb) cb();
+  }
+  requestAnimationFrame(tick);
+}
+
+function typeText(el, text, cb) {
+  if (!el) { if (cb) cb(); return; }
+  el.style.opacity = 0;
+  setTimeout(() => {
+    el.innerHTML = text;
+    el.style.transition = 'opacity 0.4s';
+    el.style.opacity = 1;
+    if (cb) cb();
+  }, 200);
+}
+
+function cycle() {
+  const next = (cur + 1) % devices.length;
+  fadeDevice(cur, 'out', () => {
+    cur = next;
+    fadeDevice(cur, 'in');
+    typeText(nameEl, devices[cur].name);
+    typeText(subEl, devices[cur].sub);
+  });
+}
+
+if (document.querySelectorAll('.hero-device').length) {
+  setInterval(cycle, 3500);
+  fadeDevice(0, 'in');
+}
+
+
+// ── NERDMINER VERB CYCLE ──
+(function() {
+  const verbs = ['Play', 'Learn', 'Build'];
+  let vi = 0;
+  const el = document.getElementById('nmVerb');
+  if (!el) return;
+  setInterval(() => {
+    el.classList.add('fading');
+    setTimeout(() => {
+      vi = (vi + 1) % verbs.length;
+      el.textContent = verbs[vi];
+      el.classList.remove('fading');
+    }, 350);
+  }, 2200);
+})();
+
+// ── SCROLL REVEAL ──
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+// ── GLOW PULSE on SVG ──
+let glowDir = 1, glowVal = 0.4;
+function glowPulse() {
+  glowVal += glowDir * 0.008;
+  if (glowVal > 0.7) glowDir = -1;
+  if (glowVal < 0.2) glowDir = 1;
+  svg.style.filter = `drop-shadow(0 0 ${(glowVal*30).toFixed(1)}px rgba(247,147,26,${glowVal.toFixed(2)}))`;
+  requestAnimationFrame(glowPulse);
+}
+glowPulse();
+// ── FLASHER DROPDOWN ──
+function toggleFlasher(btn) {
+  const wrap = btn.closest('.flasher-wrap');
+  const isOpen = wrap.classList.contains('open');
+  document.querySelectorAll('.flasher-wrap.open').forEach(w => w.classList.remove('open'));
+  if (!isOpen) wrap.classList.add('open');
+}
+document.addEventListener('click', e => {
+  if (!e.target.closest('.flasher-wrap'))
+    document.querySelectorAll('.flasher-wrap.open').forEach(w => w.classList.remove('open'));
+});
+
+</script>
+</body>
+</html>
