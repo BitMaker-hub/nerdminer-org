@@ -1,40 +1,33 @@
-# Nerd* Mining Ecosystem
+# Nerd* Mining Ecosystem — Community Landing Page
 
-Landing page showcasing the evolution and diversity of ESP32-based Bitcoin mining projects in the Nerd* ecosystem.
+> **Status: community contribution proposal.**
+> This repository is an open draft of a unified landing page that introduces
+> the Nerd* family of open-source Bitcoin mining devices. It is **not** an
+> official site of any single project — it is a starting point put forward
+> for the community to shape together. Feedback, forks and pull requests
+> are very welcome.
 
-## About
+A static landing page that showcases the evolution and diversity of the
+Nerd* Bitcoin mining ecosystem: from the original ESP32 educational miner
+to multi-ASIC builds with double-digit terahash, all of them open source —
+firmware, schematics and PCB layouts.
 
-This website serves as a central hub to present the different projects that have emerged from the NerdMiner community. The goal is to gather information about all variants and forks in one place, making it easier for anyone to learn about and explore these educational Bitcoin mining devices.
+## Why this exists
 
-## Projects Featured
+The Nerd* ecosystem has grown fast: new variants, new ASICs, new forks, new
+contributors. Information lives scattered across many repos, social posts
+and chat groups, which makes it hard for newcomers to understand what each
+device is, how they relate to each other, and where to start.
 
-The site showcases the complete ecosystem including:
+This site is an attempt to gather that map in one place, so that:
 
-- **NerdMiner** - The original ESP32 Bitcoin mining project
-- **BitAxe** - Solo mining hardware platform
-- **NerdAxe** - Fusion of NerdMiner and BitAxe concepts
-- **NerdQAxe** - Quad ASIC variant
-- **NerdOctaxe** - Octa ASIC variant
-- And other community-driven variations
+- Newcomers can see at a glance which device fits their interest or budget.
+- Makers and resellers can share a single URL when explaining the ecosystem.
+- The community has a neutral, open-source canvas it can keep extending.
 
-## Purpose
+## Featured devices
 
-This is an educational resource designed to:
-- Document the evolution of Nerd* mining projects
-- Provide learning resources for developers and enthusiasts
-- Centralize information about different hardware variants
-- Showcase the open-source mining community
+The site currently lists, ordered roughly by complexity and hashrate:
 
-## Technology
-
-- Pure HTML/CSS/JavaScript
-- SVG animations and interactive visuals
-- Responsive design for all devices
-
-## Contributing
-
-Feel free to contribute by opening issues or pull requests to add information about new projects or improve existing content.
-
-## License
-
-Open source project - check individual device projects for their specific licenses.
+- **NerdMiner v2** — the original. ESP32-S3 microcontroller doing SHA-256
+  solo minin

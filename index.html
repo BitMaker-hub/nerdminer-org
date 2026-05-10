@@ -324,6 +324,62 @@ section{position:relative;z-index:1;padding:5rem 4rem}
   font-family:'Share Tech Mono',monospace;font-size:.85rem;
   color:var(--green);margin-top:.75rem;display:block;
 }
+.pools-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:2rem;
+}
+.pools-col{
+  background:var(--card);border:1px solid var(--border);border-radius:12px;
+  padding:1.5rem 1.5rem 1.25rem;
+}
+.pools-col h4{
+  font-family:'Orbitron',monospace;font-size:.95rem;letter-spacing:.04em;
+  color:var(--orange);margin:0 0 .35rem;text-transform:uppercase;
+}
+.pools-col-asic h4{color:var(--blue)}
+.pools-col-thumb{
+  height:110px;display:flex;align-items:center;justify-content:center;
+  background:rgba(255,255,255,.025);border:1px solid var(--border);
+  border-radius:8px;margin:0 0 1rem;overflow:hidden;
+  transition:border-color .4s ease, background .4s ease;
+}
+.pools-col-thumb img{
+  height:90px;width:auto;object-fit:contain;
+  filter:brightness(0) invert(1) opacity(.32);
+  transition:filter .4s ease;
+}
+.pools-col:hover .pools-col-thumb{border-color:rgba(247,147,26,.35);background:rgba(247,147,26,.04);}
+.pools-col:hover .pools-col-thumb img{filter:brightness(0) invert(1) sepia(1) saturate(5) hue-rotate(340deg) opacity(.85);}
+.pools-col-asic:hover .pools-col-thumb{border-color:rgba(0,170,255,.35);background:rgba(0,170,255,.04);}
+.pools-col-asic:hover .pools-col-thumb img{filter:brightness(0) invert(1) sepia(1) saturate(5) hue-rotate(170deg) opacity(.85);}
+.pools-col-sub{font-size:.78rem;color:var(--dim);margin:0 0 1.1rem;line-height:1.5}
+.pool-row{
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  padding:.7rem .9rem;border:1px solid var(--border);border-radius:8px;
+  margin-bottom:.55rem;background:rgba(13,17,23,.4);
+}
+.pool-row:last-child{margin-bottom:0}
+.pool-row-name{
+  font-family:'Share Tech Mono',monospace;color:var(--blue);font-size:.92rem;
+}
+.pool-row-note{font-size:.74rem;color:var(--dim);margin-top:.15rem;line-height:1.4}
+.pool-row .btn-mini{
+  font-family:'Share Tech Mono',monospace;font-size:.72rem;
+  color:var(--orange);border:1px solid rgba(247,147,26,.35);
+  border-radius:6px;padding:.3rem .65rem;text-decoration:none;
+  white-space:nowrap;flex-shrink:0;
+}
+.pool-row .btn-mini:hover{background:rgba(247,147,26,.08)}
+.pool-row .btn-mini.is-static{
+  color:var(--dim);border-color:var(--border);cursor:default;
+}
+.pool-row .btn-mini.is-static:hover{background:transparent}
+.pool-cta{
+  margin-top:1.75rem;padding:1rem 1.25rem;border-radius:10px;
+  border:1px dashed var(--border);background:rgba(13,17,23,.35);
+  font-size:.85rem;color:var(--dim);text-align:center;line-height:1.6;
+}
+.pool-cta a{color:var(--orange);text-decoration:none;border-bottom:1px solid rgba(247,147,26,.35)}
+.pool-cta a:hover{border-bottom-color:var(--orange)}
 
 /* ── REPOS ── */
 .repos-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem}
@@ -435,6 +491,7 @@ footer{
   .division-grid,.nerdos-grid,.nm-section,.nm-testimonials-row,.nsb-inner{grid-template-columns:1fr}
   .nsb-logo-wrap{display:none}
   .pool-card{grid-template-columns:1fr}
+  .pools-grid{grid-template-columns:1fr}
   footer{flex-direction:column;text-align:center;padding:2rem 1.5rem}
 }
 @media(max-width:600px){
@@ -487,7 +544,6 @@ footer{
     <li><a href="#firmware">Firmware</a></li>
     <li><a href="#pool">Pool</a></li>
     <li><a href="#repos">Repos</a></li>
-    <li><a href="https://github.com/BitMaker-hub" target="_blank">GitHub</a></li>
   </ul>
 </nav>
 
@@ -1238,18 +1294,18 @@ footer{
     </div>
     <div class="nerdos-visual">
       <div class="os-line"><span class="ok">● LATEST RELEASE</span></div>
-      <div class="os-line" style="margin-top:.5rem"><span class="key">version</span>: <span class="val">v1.0.36</span></div>
-      <div class="os-line"><span class="key">date</span>: <span class="val">2025-01-24</span></div>
+      <div class="os-line" style="margin-top:.5rem"><span class="key">version</span>: <span class="val">v1.0.37</span></div>
+      <div class="os-line"><span class="key">date</span>: <span class="val">2026-05-09</span></div>
       <div class="os-line"><span class="key">repo</span>: <span class="val">shufps/ESP-Miner-NerdQAxePlus</span></div>
       <div class="os-line" style="margin-top:.75rem;color:var(--dim);font-size:.75rem">── changelog ──────────────────────</div>
-      <div class="os-line" style="margin-top:.4rem"><span class="ok">+</span> TLS support for encrypted Stratum connections</div>
-      <div class="os-line"><span class="ok">+</span> Experimental dashboard redesign with improved charts</div>
-      <div class="os-line"><span class="ok">+</span> System logs panel in web UI</div>
-      <div class="os-line"><span class="ok">+</span> WebSocket stability fixes (web UI unavailability resolved)</div>
-      <div class="os-line"><span class="ok">+</span> ~20KB RAM saved — memory optimizations</div>
-      <div class="os-line"><span class="ok">+</span> Edge case bug fixes &amp; performance improvements</div>
+      <div class="os-line" style="margin-top:.4rem"><span class="ok">+</span> New dashboard — modern UI, temp pills, 3h history &amp; zoom</div>
+      <div class="os-line"><span class="ok">+</span> Stratum V2 (SV2) support with Noise encryption</div>
+      <div class="os-line"><span class="ok">+</span> Dual Pool: SV1 and SV2 on different pools at once</div>
+      <div class="os-line"><span class="ok">+</span> Independent dual-fan control (ASIC + VReg)</div>
+      <div class="os-line"><span class="ok">+</span> OCTAXE: 8 individual chip temperatures in dashboard</div>
+      <div class="os-line"><span class="ok">+</span> Coinbase stack overflow fix &amp; Pool 2 protocol fixes</div>
       <div class="os-line" style="margin-top:.75rem;color:var(--dim);font-size:.75rem">── supported boards ────────────────</div>
-      <div class="os-line" style="margin-top:.4rem"><span class="key">targets</span>: <span class="val">NerdAxe · NerdQaxe+ · NerdQaxe++</span></div>
+      <div class="os-line" style="margin-top:.4rem"><span class="key">targets</span>: <span class="val">NerdAxe · NerdQaxe+ · NerdQaxe++ · NerdQX</span></div>
       <div class="os-line"><span class="key">        </span>  <span class="val">NerdOctaxe Plus · NerdOctaxe Gamma</span></div>
       <div class="os-line" style="margin-top:.75rem">
         <a href="https://github.com/shufps/ESP-Miner-NerdQAxePlus/releases/latest" target="_blank" style="color:var(--orange);text-decoration:none;font-size:.8rem">→ View full release notes on GitHub</a>
@@ -1260,9 +1316,11 @@ footer{
 
 <!-- POOL -->
 <section id="pool" class="reveal">
-  <div class="section-tag">// Community Pool</div>
-  <div class="section-title">NerdMiners Pool</div>
-  <p class="section-desc">A dedicated solo mining pool for NerdMiner devices — a place to learn, experiment, and maybe get lucky.</p>
+  <div class="section-tag">// Compatible Pools</div>
+  <div class="section-title">Mining Pools</div>
+  <p class="section-desc">Two device families, two pool ecosystems. NerdMiner (no-ASIC) devices need pools tuned for very low hashrate solo mining; ASIC devices speak standard Stratum and connect to almost any solo pool out there.</p>
+
+  <!-- Featured pool -->
   <div class="pool-card">
     <div class="pool-info">
       <h3>pool.nerdminers.org</h3>
@@ -1271,11 +1329,93 @@ footer{
     </div>
     <a href="https://pool.nerdminers.org" target="_blank" class="btn btn-primary">Visit Pool ↗</a>
   </div>
-  <p style="margin-top:1.25rem;font-size:.85rem;color:var(--dim)">
-    ASIC devices (NerdAxe, NerdQaxe, NerdOctaxe) can connect to any standard Stratum pool such as
-    <a href="https://public-pool.io" target="_blank" style="color:var(--blue)">public-pool.io</a>,
-    <a href="https://ckpool.org" target="_blank" style="color:var(--blue)">ckpool.org</a>, or your own node.
-  </p>
+
+  <!-- Two-column split: NerdMiner pools vs ASIC pools -->
+  <div class="pools-grid">
+
+    <div class="pools-col">
+      <div class="pools-col-thumb"><img src="Imagenes/nerdminer.svg" alt="NerdMiner v2"></div>
+      <h4>For NerdMiner (no-ASIC)</h4>
+      <p class="pools-col-sub">SHA-256 ESP32 devices. Need pools that accept very low hashrate / no minimum share difficulty.</p>
+
+      <div class="pool-row">
+        <div class="pool-row-info">
+          <div class="pool-row-name">pool.nerdminers.org</div>
+          <div class="pool-row-note">Official NerdMiner community pool</div>
+        </div>
+        <a href="https://pool.nerdminers.org" target="_blank" class="btn-mini">Visit ↗</a>
+      </div>
+
+      <div class="pool-row">
+        <div class="pool-row-info">
+          <div class="pool-row-name">web.public-pool.io</div>
+          <div class="pool-row-note">Open-source solo pool · also works with ASIC</div>
+        </div>
+        <a href="https://web.public-pool.io" target="_blank" class="btn-mini">Visit ↗</a>
+      </div>
+
+      <div class="pool-row">
+        <div class="pool-row-info">
+          <div class="pool-row-name">pool.bitronics.store</div>
+          <div class="pool-row-note">Solo pool · also works with ASIC</div>
+        </div>
+        <a href="https://pool.bitronics.store" target="_blank" class="btn-mini">Visit ↗</a>
+      </div>
+
+      <div class="pool-row">
+        <div class="pool-row-info">
+          <div class="pool-row-name">More pools</div>
+          <div class="pool-row-note">Full list maintained in the NerdMiner_v2 repo</div>
+        </div>
+        <a href="https://github.com/BitMaker-hub/NerdMiner_v2" target="_blank" class="btn-mini">See repo ↗</a>
+      </div>
+    </div>
+
+    <div class="pools-col pools-col-asic">
+      <div class="pools-col-thumb"><img src="Imagenes/Nerdaxe.svg" alt="NerdAxe (ASIC family)"></div>
+      <h4>For ASIC devices</h4>
+      <p class="pools-col-sub">NerdAxe / NerdQaxe / NerdQX / NerdOctaxe / NerdEKO. Standard Stratum — almost any solo pool works.</p>
+
+      <div class="pool-row">
+        <div class="pool-row-info">
+          <div class="pool-row-name">web.public-pool.io</div>
+          <div class="pool-row-note">Default for the ASIC family · open source</div>
+        </div>
+        <a href="https://web.public-pool.io" target="_blank" class="btn-mini">Visit ↗</a>
+      </div>
+
+      <div class="pool-row">
+        <div class="pool-row-info">
+          <div class="pool-row-name">ckpool.org</div>
+          <div class="pool-row-note">Long-running solo Stratum pool</div>
+        </div>
+        <a href="https://ckpool.org" target="_blank" class="btn-mini">Visit ↗</a>
+      </div>
+
+      <div class="pool-row">
+        <div class="pool-row-info">
+          <div class="pool-row-name">pool.bitronics.store</div>
+          <div class="pool-row-note">Solo pool · NerdMiner-compatible too</div>
+        </div>
+        <a href="https://pool.bitronics.store" target="_blank" class="btn-mini">Visit ↗</a>
+      </div>
+
+      <div class="pool-row">
+        <div class="pool-row-info">
+          <div class="pool-row-name">…and many more</div>
+          <div class="pool-row-note">Practically any solo Stratum pool, or your own node</div>
+        </div>
+        <span class="btn-mini is-static">Stratum ✓</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="pool-cta">
+    Run or know a pool that supports NerdMiner or any of the Nerd* ASIC devices and isn't here?
+    <a href="https://github.com/BitMaker-hub/nerdminer-org/pulls" target="_blank">Open a pull request</a>
+    on this repo to add it.
+  </div>
 </section>
 
 <!-- REPOS -->
@@ -1316,7 +1456,7 @@ footer{
     <a href="https://github.com/shufps/ESP-Miner-NerdQAxePlus" target="_blank" class="repo-card repo-card-featured">
       <div class="repo-featured-badge">Nerd<span style="color:var(--orange)">*</span>OS</div>
       <span class="repo-name">shufps / ESP-Miner-NerdQAxePlus</span>
-      <p class="repo-desc">NerdOS — shared firmware for NerdQaxe and NerdOctaxe. 75+ releases, Grafana &amp; InfluxDB support, web dashboard.</p>
+      <p class="repo-desc">NerdOS — shared firmware for NerdQaxe and NerdOctaxe. 85+ releases, Stratum V2, dual pool, Grafana &amp; InfluxDB, redesigned dashboard.</p>
       <div class="repo-meta">
         <span class="repo-lang"><span style="background:#e37933"></span>C</span>
         <span class="repo-stars">★ 191</span>
@@ -1456,155 +1596,4 @@ const VARIANTS = {
     gamma: {
       chipBadge:'8× BM1370', asic:'8× BM1370', hash:'~9.6–12 TH/s', power:'~200W (XT60)', cool:'2× AXP90',
       hw:'https://github.com/BitMaker-hub/NerdOCTAXE-Gamma',
-      desc:'The flagship. Eight BM1370 chips, 6-phase buck converter, dual Thermalright AXP90 heatsinks. Open PCB design for custom cooling. Requires expert soldering skills.',
-      revisions:[
-        { rev:'Rev 2.6 — 9.6 TH/s', url:null },
-        { rev:'Rev 3.1 — 12 TH/s', url:'https://github.com/BitMaker-hub/NerdOCTAXE-Gamma' },
-        { rev:'Rev 3.4 — 12 TH/s + temp sensors', url:'https://github.com/Patsch91/NerdOCTAXE-Gamma' }
-      ]
-    }
-  }
-};
-function renderRevTags(revisions) {
-  if (!revisions || !revisions.length) return '';
-  const tags = revisions.map(r =>
-    r.url
-      ? `<a href="${r.url}" target="_blank" class="rev-tag rev-link">${r.rev} ↗</a>`
-      : `<span class="rev-tag">${r.rev}</span>`
-  ).join('');
-  return `<div class="card-revisions"><div class="card-revisions-label">HW Revisions</div><div class="rev-tags">${tags}</div></div>`;
-}
-function setVariant(family, variant, btn) {
-  btn.closest('.variant-selector').querySelectorAll('.variant-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  const d = VARIANTS[family][variant];
-  if (family === 'nerdaxe') {
-    document.getElementById('nerdaxe-asic').textContent  = d.asic;
-    document.getElementById('nerdaxe-hash').textContent  = d.hash;
-    document.getElementById('nerdaxe-power').textContent = d.power;
-    document.getElementById('nerdaxe-desc').textContent  = d.desc;
-    document.getElementById('nerdaxe-revisions').innerHTML = renderRevTags(d.revisions);
-    document.getElementById('nerdaxe-chipbadge').textContent = d.chipBadge;
-  } else if (family === 'nerdqaxe') {
-    document.getElementById('nerdqaxe-asic').textContent  = d.asic;
-    document.getElementById('nerdqaxe-hash').textContent  = d.hash;
-    document.getElementById('nerdqaxe-power').textContent = d.power;
-    document.getElementById('nerdqaxe-eff').textContent   = d.eff;
-    document.getElementById('nerdqaxe-desc').textContent  = d.desc;
-    document.getElementById('nerdqaxe-hwlink').href       = d.hw;
-    document.getElementById('nerdqaxe-revisions').innerHTML = renderRevTags(d.revisions);
-    document.getElementById('nerdqaxe-chipbadge').textContent = d.chipBadge;
-  } else if (family === 'nerdoctaxe') {
-    document.getElementById('nerdoctaxe-asic').textContent  = d.asic;
-    document.getElementById('nerdoctaxe-hash').textContent  = d.hash;
-    document.getElementById('nerdoctaxe-power').textContent = d.power;
-    document.getElementById('nerdoctaxe-cool').textContent  = d.cool;
-    document.getElementById('nerdoctaxe-desc').textContent  = d.desc;
-    document.getElementById('nerdoctaxe-hwlink').href       = d.hw;
-    document.getElementById('nerdoctaxe-revisions').innerHTML = renderRevTags(d.revisions);
-    document.getElementById('nerdoctaxe-chipbadge').textContent = d.chipBadge;
-  }
-}
-
-// ── DEVICE ANIMATION ──
-const devices = [
-  { id: 'dev-0', name: 'NerdMiner v2', sub: 'ESP32-S3 · No ASIC · &lt;1W · Educational' },
-  { id: 'dev-1', name: 'NerdAxe Gamma', sub: '1× BM1370 · 1.2 TH/s · ~25W' },
-  { id: 'dev-2', name: 'NerdQaxe++', sub: '4× BM1370 · 4.82 TH/s · 70.6W' },
-  { id: 'dev-3', name: 'NerdOctaxe Gamma', sub: '8× BM1370 · 9.6 TH/s · ~150W' },
-];
-let cur = 0;
-const svg = document.getElementById('device-svg');
-const nameEl = document.getElementById('device-name');
-const subEl = document.getElementById('device-sub');
-
-function fadeDevice(idx, inOut, cb) {
-  const g = document.getElementById(devices[idx].id);
-  const start = inOut === 'in' ? 0 : 1;
-  const end = inOut === 'in' ? 1 : 0;
-  const dur = 600;
-  const t0 = performance.now();
-  function tick(t) {
-    const p = Math.min((t - t0) / dur, 1);
-    const ease = p < 0.5 ? 2*p*p : -1+(4-2*p)*p;
-    g.setAttribute('opacity', start + (end - start) * ease);
-    if (p < 1) requestAnimationFrame(tick);
-    else if (cb) cb();
-  }
-  requestAnimationFrame(tick);
-}
-
-function typeText(el, text, cb) {
-  if (!el) { if (cb) cb(); return; }
-  el.style.opacity = 0;
-  setTimeout(() => {
-    el.innerHTML = text;
-    el.style.transition = 'opacity 0.4s';
-    el.style.opacity = 1;
-    if (cb) cb();
-  }, 200);
-}
-
-function cycle() {
-  const next = (cur + 1) % devices.length;
-  fadeDevice(cur, 'out', () => {
-    cur = next;
-    fadeDevice(cur, 'in');
-    typeText(nameEl, devices[cur].name);
-    typeText(subEl, devices[cur].sub);
-  });
-}
-
-if (document.querySelectorAll('.hero-device').length) {
-  setInterval(cycle, 3500);
-  fadeDevice(0, 'in');
-}
-
-
-// ── NERDMINER VERB CYCLE ──
-(function() {
-  const verbs = ['Play', 'Learn', 'Build'];
-  let vi = 0;
-  const el = document.getElementById('nmVerb');
-  if (!el) return;
-  setInterval(() => {
-    el.classList.add('fading');
-    setTimeout(() => {
-      vi = (vi + 1) % verbs.length;
-      el.textContent = verbs[vi];
-      el.classList.remove('fading');
-    }, 350);
-  }, 2200);
-})();
-
-// ── SCROLL REVEAL ──
-const obs = new IntersectionObserver((entries) => {
-  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
-}, { threshold: 0.1 });
-document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-
-// ── GLOW PULSE on SVG ──
-let glowDir = 1, glowVal = 0.4;
-function glowPulse() {
-  glowVal += glowDir * 0.008;
-  if (glowVal > 0.7) glowDir = -1;
-  if (glowVal < 0.2) glowDir = 1;
-  svg.style.filter = `drop-shadow(0 0 ${(glowVal*30).toFixed(1)}px rgba(247,147,26,${glowVal.toFixed(2)}))`;
-  requestAnimationFrame(glowPulse);
-}
-glowPulse();
-// ── FLASHER DROPDOWN ──
-function toggleFlasher(btn) {
-  const wrap = btn.closest('.flasher-wrap');
-  const isOpen = wrap.classList.contains('open');
-  document.querySelectorAll('.flasher-wrap.open').forEach(w => w.classList.remove('open'));
-  if (!isOpen) wrap.classList.add('open');
-}
-document.addEventListener('click', e => {
-  if (!e.target.closest('.flasher-wrap'))
-    document.querySelectorAll('.flasher-wrap.open').forEach(w => w.classList.remove('open'));
-});
-
-</script>
-</body>
-</html>
+      
