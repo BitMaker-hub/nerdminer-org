@@ -1596,4 +1596,155 @@ const VARIANTS = {
     gamma: {
       chipBadge:'8× BM1370', asic:'8× BM1370', hash:'~9.6–12 TH/s', power:'~200W (XT60)', cool:'2× AXP90',
       hw:'https://github.com/BitMaker-hub/NerdOCTAXE-Gamma',
-      
+      desc:'The flagship. Eight BM1370 chips, 6-phase buck converter, dual Thermalright AXP90 heatsinks. Open PCB design for custom cooling. Requires expert soldering skills.',
+      revisions:[
+        { rev:'Rev 2.6 — 9.6 TH/s', url:null },
+        { rev:'Rev 3.1 — 12 TH/s', url:'https://github.com/BitMaker-hub/NerdOCTAXE-Gamma' },
+        { rev:'Rev 3.4 — 12 TH/s + temp sensors', url:'https://github.com/Patsch91/NerdOCTAXE-Gamma' }
+      ]
+    }
+  }
+};
+function renderRevTags(revisions) {
+  if (!revisions || !revisions.length) return '';
+  const tags = revisions.map(r =>
+    r.url
+      ? `<a href="${r.url}" target="_blank" class="rev-tag rev-link">${r.rev} ↗</a>`
+      : `<span class="rev-tag">${r.rev}</span>`
+  ).join('');
+  return `<div class="card-revisions"><div class="card-revisions-label">HW Revisions</div><div class="rev-tags">${tags}</div></div>`;
+}
+function setVariant(family, variant, btn) {
+  btn.closest('.variant-selector').querySelectorAll('.variant-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const d = VARIANTS[family][variant];
+  if (family === 'nerdaxe') {
+    document.getElementById('nerdaxe-asic').textContent  = d.asic;
+    document.getElementById('nerdaxe-hash').textContent  = d.hash;
+    document.getElementById('nerdaxe-power').textContent = d.power;
+    document.getElementById('nerdaxe-desc').textContent  = d.desc;
+    document.getElementById('nerdaxe-revisions').innerHTML = renderRevTags(d.revisions);
+    document.getElementById('nerdaxe-chipbadge').textContent = d.chipBadge;
+  } else if (family === 'nerdqaxe') {
+    document.getElementById('nerdqaxe-asic').textContent  = d.asic;
+    document.getElementById('nerdqaxe-hash').textContent  = d.hash;
+    document.getElementById('nerdqaxe-power').textContent = d.power;
+    document.getElementById('nerdqaxe-eff').textContent   = d.eff;
+    document.getElementById('nerdqaxe-desc').textContent  = d.desc;
+    document.getElementById('nerdqaxe-hwlink').href       = d.hw;
+    document.getElementById('nerdqaxe-revisions').innerHTML = renderRevTags(d.revisions);
+    document.getElementById('nerdqaxe-chipbadge').textContent = d.chipBadge;
+  } else if (family === 'nerdoctaxe') {
+    document.getElementById('nerdoctaxe-asic').textContent  = d.asic;
+    document.getElementById('nerdoctaxe-hash').textContent  = d.hash;
+    document.getElementById('nerdoctaxe-power').textContent = d.power;
+    document.getElementById('nerdoctaxe-cool').textContent  = d.cool;
+    document.getElementById('nerdoctaxe-desc').textContent  = d.desc;
+    document.getElementById('nerdoctaxe-hwlink').href       = d.hw;
+    document.getElementById('nerdoctaxe-revisions').innerHTML = renderRevTags(d.revisions);
+    document.getElementById('nerdoctaxe-chipbadge').textContent = d.chipBadge;
+  }
+}
+
+// ── DEVICE ANIMATION ──
+const devices = [
+  { id: 'dev-0', name: 'NerdMiner v2', sub: 'ESP32-S3 · No ASIC · &lt;1W · Educational' },
+  { id: 'dev-1', name: 'NerdAxe Gamma', sub: '1× BM1370 · 1.2 TH/s · ~25W' },
+  { id: 'dev-2', name: 'NerdQaxe++', sub: '4× BM1370 · 4.82 TH/s · 70.6W' },
+  { id: 'dev-3', name: 'NerdOctaxe Gamma', sub: '8× BM1370 · 9.6 TH/s · ~150W' },
+];
+let cur = 0;
+const svg = document.getElementById('device-svg');
+const nameEl = document.getElementById('device-name');
+const subEl = document.getElementById('device-sub');
+
+function fadeDevice(idx, inOut, cb) {
+  const g = document.getElementById(devices[idx].id);
+  const start = inOut === 'in' ? 0 : 1;
+  const end = inOut === 'in' ? 1 : 0;
+  const dur = 600;
+  const t0 = performance.now();
+  function tick(t) {
+    const p = Math.min((t - t0) / dur, 1);
+    const ease = p < 0.5 ? 2*p*p : -1+(4-2*p)*p;
+    g.setAttribute('opacity', start + (end - start) * ease);
+    if (p < 1) requestAnimationFrame(tick);
+    else if (cb) cb();
+  }
+  requestAnimationFrame(tick);
+}
+
+function typeText(el, text, cb) {
+  if (!el) { if (cb) cb(); return; }
+  el.style.opacity = 0;
+  setTimeout(() => {
+    el.innerHTML = text;
+    el.style.transition = 'opacity 0.4s';
+    el.style.opacity = 1;
+    if (cb) cb();
+  }, 200);
+}
+
+function cycle() {
+  const next = (cur + 1) % devices.length;
+  fadeDevice(cur, 'out', () => {
+    cur = next;
+    fadeDevice(cur, 'in');
+    typeText(nameEl, devices[cur].name);
+    typeText(subEl, devices[cur].sub);
+  });
+}
+
+if (document.querySelectorAll('.hero-device').length) {
+  setInterval(cycle, 3500);
+  fadeDevice(0, 'in');
+}
+
+
+// ── NERDMINER VERB CYCLE ──
+(function() {
+  const verbs = ['Play', 'Learn', 'Build'];
+  let vi = 0;
+  const el = document.getElementById('nmVerb');
+  if (!el) return;
+  setInterval(() => {
+    el.classList.add('fading');
+    setTimeout(() => {
+      vi = (vi + 1) % verbs.length;
+      el.textContent = verbs[vi];
+      el.classList.remove('fading');
+    }, 350);
+  }, 2200);
+})();
+
+// ── SCROLL REVEAL ──
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+// ── GLOW PULSE on SVG ──
+let glowDir = 1, glowVal = 0.4;
+function glowPulse() {
+  glowVal += glowDir * 0.008;
+  if (glowVal > 0.7) glowDir = -1;
+  if (glowVal < 0.2) glowDir = 1;
+  svg.style.filter = `drop-shadow(0 0 ${(glowVal*30).toFixed(1)}px rgba(247,147,26,${glowVal.toFixed(2)}))`;
+  requestAnimationFrame(glowPulse);
+}
+glowPulse();
+// ── FLASHER DROPDOWN ──
+function toggleFlasher(btn) {
+  const wrap = btn.closest('.flasher-wrap');
+  const isOpen = wrap.classList.contains('open');
+  document.querySelectorAll('.flasher-wrap.open').forEach(w => w.classList.remove('open'));
+  if (!isOpen) wrap.classList.add('open');
+}
+document.addEventListener('click', e => {
+  if (!e.target.closest('.flasher-wrap'))
+    document.querySelectorAll('.flasher-wrap.open').forEach(w => w.classList.remove('open'));
+});
+
+</script>
+</body>
+</html>
