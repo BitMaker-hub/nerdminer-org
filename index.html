@@ -522,6 +522,40 @@ section{position:relative;z-index:1;padding:5rem 4rem}
 
 
 
+
+
+/* === Device screens marquee === */
+.gallery-marquee{
+  position:relative;width:100%;overflow:hidden;
+  margin-top:2.5rem;padding:.4rem 0;
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 8%,#000 92%,transparent 100%);
+  mask-image:linear-gradient(90deg,transparent 0,#000 8%,#000 92%,transparent 100%);
+}
+.gallery-track{
+  display:flex;gap:1rem;width:max-content;
+  animation:galleryScroll 50s linear infinite;
+}
+.gallery-marquee:hover .gallery-track{animation-play-state:paused}
+.gallery-track img{
+  display:block;flex-shrink:0;
+  height:170px;width:auto;
+  border-radius:10px;border:1px solid var(--border);
+  background:rgba(13,17,23,.5);object-fit:contain;
+  box-shadow:0 8px 22px rgba(0,0,0,.45);
+  transition:transform .3s ease;
+}
+.gallery-track img:hover{transform:translateY(-3px)}
+@keyframes galleryScroll{
+  from{transform:translate3d(0,0,0)}
+  to{transform:translate3d(calc(-50% - .5rem),0,0)}
+}
+@media(prefers-reduced-motion:reduce){
+  .gallery-track{animation:none}
+}
+@media(max-width:600px){
+  .gallery-track img{height:130px}
+}
+
 /* === NerdOS 50/50 split (true viewport half each) === */
 .nerdos-split{
   display:grid;grid-template-columns:1fr 1fr;gap:0;align-items:stretch;
@@ -1324,6 +1358,23 @@ footer{
       <a href="https://bitaxe.org" target="_blank" rel="noopener">
         <img src="Imagenes/Bitaxe-logo2.png" alt="Bitaxe" class="nsb-logo nsb-logo-bitaxe">
       </a>
+    </div>
+  </div>
+
+  <div class="gallery-marquee" aria-label="NerdMiner display screens">
+    <div class="gallery-track">
+      <img src="Imagenes/initscreen.png" alt="NerdQaxe splash screen" loading="lazy">
+      <img src="Imagenes/globalstats.png" alt="Global mining stats display" loading="lazy">
+      <img src="Imagenes/miningScreen.png" alt="NerdOctaxe mining dashboard" loading="lazy">
+      <img src="Imagenes/priceScreen.png" alt="Bitcoin price screen" loading="lazy">
+      <img src="Imagenes/portalscreen.png" alt="WiFi config portal" loading="lazy">
+      <img src="Imagenes/initscreen2.png" alt="NerdAxe splash screen" loading="lazy">
+      <img src="Imagenes/initscreen.png" alt="" aria-hidden="true" loading="lazy">
+      <img src="Imagenes/globalstats.png" alt="" aria-hidden="true" loading="lazy">
+      <img src="Imagenes/miningScreen.png" alt="" aria-hidden="true" loading="lazy">
+      <img src="Imagenes/priceScreen.png" alt="" aria-hidden="true" loading="lazy">
+      <img src="Imagenes/portalscreen.png" alt="" aria-hidden="true" loading="lazy">
+      <img src="Imagenes/initscreen2.png" alt="" aria-hidden="true" loading="lazy">
     </div>
   </div>
 </div>
