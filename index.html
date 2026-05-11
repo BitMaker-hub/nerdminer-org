@@ -384,6 +384,65 @@ section{position:relative;z-index:1;padding:5rem 4rem}
 .pool-cta a{color:var(--orange);text-decoration:none;border-bottom:1px solid rgba(247,147,26,.35)}
 .pool-cta a:hover{border-bottom-color:var(--orange)}
 
+/* TOOLS */
+.tools-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;
+}
+.tool-card{
+  background:var(--card);border:1px solid var(--border);border-radius:10px;
+  padding:1.25rem;text-decoration:none;display:block;position:relative;
+  transition:all .2s;color:inherit;
+}
+.tool-card:hover{border-color:rgba(247,147,26,.4);transform:translateY(-2px)}
+.tool-card-head{display:flex;align-items:center;gap:.75rem;margin-bottom:.6rem}
+.tool-icon{
+  width:36px;height:36px;flex-shrink:0;
+  border:1px solid var(--border);border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Orbitron',monospace;font-size:.78rem;color:var(--orange);
+  background:rgba(247,147,26,.04);
+}
+.tool-name{font-family:'Share Tech Mono',monospace;font-size:.95rem;color:var(--blue);}
+.tool-desc{font-size:.82rem;color:var(--dim);line-height:1.5;margin-bottom:.75rem}
+.tool-meta{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
+.tool-tag{
+  padding:.2rem .55rem;border:1px solid var(--border);border-radius:5px;
+  font-family:'Share Tech Mono',monospace;font-size:.7rem;color:var(--dim);
+}
+.tool-tag.tag-open{color:var(--green);border-color:rgba(0,255,136,.25);background:rgba(0,255,136,.04)}
+.tool-tag.tag-web{color:var(--blue);border-color:rgba(88,166,255,.25);background:rgba(88,166,255,.04)}
+.tool-tag.tag-fork{color:var(--orange);border-color:rgba(247,147,26,.25);background:rgba(247,147,26,.04)}
+.tools-cta{
+  margin-top:1.75rem;padding:1rem 1.25rem;border-radius:10px;
+  border:1px dashed var(--border);background:rgba(13,17,23,.35);
+  font-size:.85rem;color:var(--dim);text-align:center;line-height:1.6;
+}
+.tools-cta a{color:var(--orange);text-decoration:none;border-bottom:1px solid rgba(247,147,26,.35)}
+.tools-cta a:hover{border-bottom-color:var(--orange)}
+
+/* SV2 BADGE */
+.sv2-badge{
+  display:inline-flex;align-items:center;gap:.6rem;
+  padding:.55rem .85rem;margin-top:1rem;
+  border:1px solid rgba(87,233,240,.32);border-radius:8px;
+  background:linear-gradient(135deg, rgba(87,233,240,.08), rgba(87,233,240,.02));
+  text-decoration:none;transition:all .2s;
+}
+.sv2-badge:hover{border-color:rgba(87,233,240,.55);background:linear-gradient(135deg, rgba(87,233,240,.14), rgba(87,233,240,.04))}
+.sv2-badge-mark{
+  display:flex;align-items:center;justify-content:center;
+  width:30px;height:30px;border-radius:6px;
+  background:#171717;border:1px solid rgba(87,233,240,.55);
+  font-family:'Orbitron',monospace;font-weight:900;font-size:.65rem;
+  color:#57E9F0;letter-spacing:.04em;flex-shrink:0;
+}
+.sv2-badge-text{
+  font-family:'Share Tech Mono',monospace;font-size:.78rem;
+  color:#57E9F0;text-transform:uppercase;letter-spacing:.05em;line-height:1.2;
+}
+.sv2-badge-text strong{color:#fff;font-weight:600}
+.sv2-badge-text small{display:block;color:rgba(87,233,240,.6);font-size:.66rem;margin-top:.15rem;text-transform:none;letter-spacing:0}
+
 /* ── REPOS ── */
 .repos-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem}
 .repo-card{
@@ -545,6 +604,7 @@ footer{
   <ul class="nav-links">
     <li><a href="#devices">Devices</a></li>
     <li><a href="#firmware">Firmware</a></li>
+    <li><a href="#tools">Tools</a></li>
     <li><a href="#pool">Pool</a></li>
     <li><a href="#repos">Repos</a></li>
   </ul>
@@ -1310,10 +1370,100 @@ footer{
       <div class="os-line" style="margin-top:.75rem;color:var(--dim);font-size:.75rem">── supported boards ────────────────</div>
       <div class="os-line" style="margin-top:.4rem"><span class="key">targets</span>: <span class="val">NerdAxe · NerdQaxe+ · NerdQaxe++ · NerdQX</span></div>
       <div class="os-line"><span class="key">        </span>  <span class="val">NerdOctaxe Plus · NerdOctaxe Gamma</span></div>
+            <div class="os-line" style="margin-top:1.1rem">
+        <a class="sv2-badge" href="https://stratumprotocol.org" target="_blank" rel="noopener">
+          <span class="sv2-badge-mark">SV2</span>
+          <span class="sv2-badge-text"><strong>Stratum V2</strong> compatible<small>noise-encrypted mining protocol</small></span>
+        </a>
+      </div>
       <div class="os-line" style="margin-top:.75rem">
         <a href="https://github.com/shufps/ESP-Miner-NerdQAxePlus/releases/latest" target="_blank" style="color:var(--orange);text-decoration:none;font-size:.8rem">→ View full release notes on GitHub</a>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- TOOLS -->
+<section id="tools" class="reveal">
+  <div class="section-tag">// Companion Software</div>
+  <div class="section-title">Tools</div>
+  <p class="section-desc">Software and add-ons that extend the Nerd* ecosystem - monitoring dashboards, network adapters, flashers and more. Built by the community, for the community.</p>
+  <div class="tools-grid">
+
+    <a href="https://hashwatcher.app/" target="_blank" rel="noopener" class="tool-card">
+      <div class="tool-card-head">
+        <div class="tool-icon">HW</div>
+        <div class="tool-name">HashWatcher</div>
+      </div>
+      <p class="tool-desc">Multi-miner dashboard for mobile and web. Track hashrate, power, temperatures and efficiency across your Bitaxe / NerdQaxe / NerdOctaxe fleet at a glance, with charts and PDF reports.</p>
+      <div class="tool-meta">
+        <span class="tool-tag tag-web">iOS · Android · Web</span>
+      </div>
+    </a>
+
+    <a href="https://github.com/CryptoIceMLH/ESP-Miner-NerdQAxePlusLAN" target="_blank" rel="noopener" class="tool-card">
+      <div class="tool-card-head">
+        <div class="tool-icon">LAN</div>
+        <div class="tool-name">NerdQaxe LAN Firmware</div>
+      </div>
+      <p class="tool-desc">Open-source NerdOS fork that adds wired Ethernet (W5500) support to NerdQaxe and NerdOctaxe - dual-stack WiFi + LAN with runtime switching and PHY link detection. Pairs with community LAN shields.</p>
+      <div class="tool-meta">
+        <span class="tool-tag tag-fork">NerdOS fork</span>
+        <span class="tool-tag tag-open">Open source</span>
+      </div>
+    </a>
+
+    <a href="https://shufps.github.io/nerdqaxe-web-flasher/" target="_blank" rel="noopener" class="tool-card">
+      <div class="tool-card-head">
+        <div class="tool-icon">⚡</div>
+        <div class="tool-name">Nerd*axe Web Flasher</div>
+      </div>
+      <p class="tool-desc">Browser-based flasher for the full Nerd*axe ASIC family. Pick a release from the dropdown and flash over USB with WebSerial - no toolchain or drivers needed.</p>
+      <div class="tool-meta">
+        <span class="tool-tag tag-web">WebSerial</span>
+        <span class="tool-tag tag-open">Open source</span>
+      </div>
+    </a>
+
+    <a href="https://flasher.bitronics.store/" target="_blank" rel="noopener" class="tool-card">
+      <div class="tool-card-head">
+        <div class="tool-icon">⚡</div>
+        <div class="tool-name">Bitronics Flasher</div>
+      </div>
+      <p class="tool-desc">Alternative WebSerial flasher with curated firmware lists per device and pre-configured profiles. Works for NerdMiner v2 and the entire Nerd*axe ASIC family.</p>
+      <div class="tool-meta">
+        <span class="tool-tag tag-web">WebSerial</span>
+      </div>
+    </a>
+
+    <a href="https://github.com/shufps/ESP-Miner-NerdQAxePlus/tree/master/monitoring" target="_blank" rel="noopener" class="tool-card">
+      <div class="tool-card-head">
+        <div class="tool-icon">█</div>
+        <div class="tool-name">Grafana + InfluxDB Stack</div>
+      </div>
+      <p class="tool-desc">Drop-in monitoring stack from the NerdOS repo. Docker-compose pipeline that ingests every metric the firmware exposes via InfluxDB and ships a pre-built Grafana dashboard.</p>
+      <div class="tool-meta">
+        <span class="tool-tag tag-open">Open source</span>
+      </div>
+    </a>
+
+    <a href="https://github.com/wklnd/SerialReader" target="_blank" rel="noopener" class="tool-card">
+      <div class="tool-card-head">
+        <div class="tool-icon">&gt;_</div>
+        <div class="tool-name">SerialReader</div>
+      </div>
+      <p class="tool-desc">Small Python script to monitor a headless NerdMiner over USB serial - temperature, total MHashes, shares and valid blocks straight in your terminal. Great for kiosk setups.</p>
+      <div class="tool-meta">
+        <span class="tool-tag tag-open">Open source</span>
+      </div>
+    </a>
+
+  </div>
+
+  <div class="tools-cta">
+    Building a tool that supports Nerd* devices?
+    <a href="https://github.com/BitMaker-hub/nerdminer-org/pulls" target="_blank" rel="noopener">Open a pull request</a>
+    on this repo to add it here.
   </div>
 </section>
 
