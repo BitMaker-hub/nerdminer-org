@@ -387,7 +387,7 @@ section{position:relative;z-index:1;padding:5rem 4rem}
 /* === OS TABS PANEL === */
 .os-tabs{display:flex;flex-direction:column;gap:1rem}
 .os-tabs-strip{
-  display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:.4rem;
+  display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:.3rem;
   padding:.4rem;border-radius:14px;
   background:rgba(13,17,23,.6);border:1px solid var(--border);
 }
@@ -396,8 +396,13 @@ section{position:relative;z-index:1;padding:5rem 4rem}
   gap:.35rem;padding:.7rem .35rem;
   background:transparent;border:1px solid transparent;border-radius:10px;
   color:var(--dim);cursor:pointer;transition:all .2s;
-  font-family:'Share Tech Mono',monospace;font-size:.65rem;
-  text-transform:uppercase;letter-spacing:.04em;text-align:center;line-height:1.1;
+  font-family:'Share Tech Mono',monospace;font-size:.6rem;
+  text-transform:uppercase;letter-spacing:.03em;text-align:center;line-height:1.1;
+  min-width:0;overflow:hidden;
+}
+.os-tab-label{
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  max-width:100%;display:block;
 }
 .os-tab:hover{color:var(--text);background:rgba(247,147,26,.04)}
 .os-tab.active{color:var(--orange);background:rgba(247,147,26,.08);border-color:rgba(247,147,26,.25)}
