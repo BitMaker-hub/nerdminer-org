@@ -518,6 +518,62 @@ section{position:relative;z-index:1;padding:5rem 4rem}
   .os-tabs-strip{grid-template-columns:repeat(2,1fr)}
 }
 
+
+
+/* === Tab panel with side image === */
+.os-tab-panel.has-image{
+  display:none;grid-template-columns:1.05fr 1fr;gap:1.75rem;align-items:start;
+}
+.os-tab-panel.has-image.active{display:grid;animation:osFade .25s ease}
+.os-panel-image{
+  position:relative;border-radius:10px;overflow:hidden;
+  background:radial-gradient(ellipse at top right,rgba(247,147,26,.08),rgba(13,17,23,.85));
+  border:1px solid var(--border);padding:.4rem;
+  box-shadow:0 10px 28px rgba(0,0,0,.45);
+}
+.os-panel-image img{display:block;width:100%;height:auto;border-radius:8px}
+.os-panel-image-empty{
+  display:flex;align-items:center;justify-content:center;
+  min-height:240px;color:var(--dim);font-family:'Share Tech Mono',monospace;font-size:.78rem;
+  text-align:center;padding:1.5rem;border:1px dashed var(--border);border-radius:8px;
+  background:rgba(13,17,23,.4);
+}
+.os-panel-image-label{
+  position:absolute;top:.75rem;left:.75rem;
+  padding:.22rem .55rem;border-radius:6px;
+  background:rgba(13,17,23,.9);border:1px solid rgba(0,255,136,.3);
+  font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--green);
+  text-transform:uppercase;letter-spacing:.06em;z-index:1;
+}
+@media(max-width:900px){
+  .os-tab-panel.has-image{grid-template-columns:1fr}
+}
+
+/* === Stronger section transitions === */
+section{
+  position:relative;
+  border-top:1px solid rgba(247,147,26,.08);
+  box-shadow:0 -1px 0 rgba(0,0,0,.5) inset, 0 8px 32px -16px rgba(0,0,0,.6);
+}
+section#hero{border-top:none;box-shadow:none}
+/* Alternating subtle background tints */
+section.reveal#devices,
+section.reveal#tools,
+section.reveal#pool{
+  background:linear-gradient(180deg,rgba(13,17,23,.35) 0%,rgba(7,11,15,.7) 100%);
+}
+section.reveal#repos{
+  background:linear-gradient(180deg,rgba(13,17,23,.55) 0%,rgba(7,11,15,.85) 100%);
+}
+section.reveal#firmware.nerdos-section{
+  background:linear-gradient(180deg,rgba(7,11,15,.5) 0%,rgba(13,17,23,.7) 100%);
+}
+/* Strengthen the existing top accent strip */
+section.reveal::before{
+  width:180px !important;height:3px !important;
+  background:linear-gradient(90deg,transparent,rgba(247,147,26,.85),transparent) !important;
+}
+
 /* === SECTION POLISH === */
 section{position:relative}
 section.reveal::before{
@@ -1493,158 +1549,190 @@ footer{
   <div class="section-tag">// Shared Firmware</div>
   <div class="section-title">Nerd<span style="color:var(--orange)">*</span>OS</div>
   <p class="section-desc">All ASIC-based Nerd* devices run a common firmware stack based on ESP-Miner. One codebase, all devices.</p>
-  <div class="nerdos-grid">
-    <div>
-      <div class="os-feat-list" style="margin-top:0">
-        <div class="os-feat">Web dashboard — monitor hashrate, temperature, power and uptime from any browser on your network</div>
-        <div class="os-feat">Real-time WebSocket telemetry and REST API for integration with Grafana + InfluxDB</div>
-        <div class="os-feat">OTA firmware updates — no cables needed after initial flash</div>
-        <div class="os-feat">Live ASIC clock and voltage adjustment without reboot</div>
-        <div class="os-feat">Stratum protocol — connects to any standard solo mining pool</div>
-        <div class="os-feat">Fan PWM control via EMC2101, temperature-driven curves</div>
-        <div class="os-feat">Network swarm support — manage multiple devices together</div>
-        <div class="os-feat">One-click web flasher at <a href="https://shufps.github.io/nerdqaxe-web-flasher/" target="_blank" style="color:var(--orange)">Nerd*axe Web Flasher</a></div>
-      </div>
-      <div style="margin-top:2rem;display:flex;gap:.75rem;flex-wrap:wrap">
-        <a href="https://github.com/shufps/ESP-Miner-NerdQAxePlus" target="_blank" class="btn btn-primary">NerdOS Repo ↗</a>
-      </div>
+
+  <div class="nerdos-visual os-tabs" style="margin-top:2rem">
+    <div class="os-tabs-strip">
+      <button class="os-tab active" data-tab="features" onclick="selectOsTab(this)">
+        <span class="os-tab-icon">⚡</span>
+        <span class="os-tab-label">Features</span>
+      </button>
+      <button class="os-tab" data-tab="latest" onclick="selectOsTab(this)">
+        <span class="os-tab-icon">●</span>
+        <span class="os-tab-label">Latest</span>
+      </button>
+      <button class="os-tab" data-tab="sv2" onclick="selectOsTab(this)">
+        <span class="os-tab-icon">SV2</span>
+        <span class="os-tab-label">Stratum V2</span>
+      </button>
+      <button class="os-tab" data-tab="compat" onclick="selectOsTab(this)">
+        <span class="os-tab-icon">⎔</span>
+        <span class="os-tab-label">Compatibility</span>
+      </button>
+      <button class="os-tab" data-tab="contrib" onclick="selectOsTab(this)">
+        <span class="os-tab-icon">◈</span>
+        <span class="os-tab-label">Contributors</span>
+      </button>
+      <button class="os-tab" data-tab="mon" onclick="selectOsTab(this)">
+        <span class="os-tab-icon">▦</span>
+        <span class="os-tab-label">Monitoring</span>
+      </button>
     </div>
-    <div class="nerdos-visual os-tabs">
-      <div class="os-tabs-strip">
-        <button class="os-tab active" data-tab="latest" onclick="selectOsTab(this)">
-          <span class="os-tab-icon">●</span>
-          <span class="os-tab-label">Latest</span>
-        </button>
-        <button class="os-tab" data-tab="sv2" onclick="selectOsTab(this)">
-          <span class="os-tab-icon">SV2</span>
-          <span class="os-tab-label">Stratum V2</span>
-        </button>
-        <button class="os-tab" data-tab="compat" onclick="selectOsTab(this)">
-          <span class="os-tab-icon">⎔</span>
-          <span class="os-tab-label">Compatibility</span>
-        </button>
-        <button class="os-tab" data-tab="contrib" onclick="selectOsTab(this)">
-          <span class="os-tab-icon">◈</span>
-          <span class="os-tab-label">Contributors</span>
-        </button>
-        <button class="os-tab" data-tab="mon" onclick="selectOsTab(this)">
-          <span class="os-tab-icon">▦</span>
-          <span class="os-tab-label">Monitoring</span>
-        </button>
+
+    <div class="os-tab-panels">
+
+      <div class="os-tab-panel has-image active" data-tab="features">
+        <div>
+          <div class="os-panel-h">What NerdOS gives you</div>
+          <p class="os-panel-sub">A single firmware that ships with everything a solo miner needs out of the box - monitor it from any browser, push metrics to Grafana, update OTA, and tune your ASIC on the fly.</p>
+          <div class="os-panel-list">
+            <div class="item"><strong>Web dashboard</strong> &mdash; hashrate, temperature, power and uptime from any browser on your network</div>
+            <div class="item"><strong>WebSocket telemetry + REST API</strong> &mdash; built for Grafana + InfluxDB integration</div>
+            <div class="item"><strong>OTA firmware updates</strong> &mdash; no cables needed after initial flash</div>
+            <div class="item"><strong>Live ASIC clock &amp; voltage</strong> &mdash; tune frequency and voltage without rebooting</div>
+            <div class="item"><strong>Stratum V1 + V2</strong> &mdash; talks to any modern solo pool, with Noise encryption on SV2</div>
+            <div class="item"><strong>Dual-fan control</strong> &mdash; independent PID for ASIC and VReg fans via EMC2101</div>
+            <div class="item"><strong>Network swarm</strong> &mdash; manage multiple devices together</div>
+            <div class="item"><strong>One-click web flasher</strong> &mdash; flash any release directly from the browser</div>
+          </div>
+          <div style="margin-top:1.25rem;display:flex;gap:.75rem;flex-wrap:wrap">
+            <a href="https://github.com/shufps/ESP-Miner-NerdQAxePlus" target="_blank" class="btn btn-primary">NerdOS Repo ↗</a>
+            <a href="https://shufps.github.io/nerdqaxe-web-flasher/" target="_blank" style="padding:.65rem 1rem;border:1px solid var(--border);border-radius:8px;color:var(--text);text-decoration:none;font-family:'Share Tech Mono',monospace;font-size:.78rem">⚡ Web Flasher</a>
+          </div>
+        </div>
+        <div class="os-panel-image">
+          <span class="os-panel-image-label">Live dashboard</span>
+          <img src="Imagenes/nerdos-dashboard.png" alt="NerdOS web dashboard" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'os-panel-image-empty\'>Dashboard preview<br><span style=\'opacity:.6;font-size:.72rem;display:block;margin-top:.4rem\'>drop Imagenes/nerdos-dashboard.png<br>in the repo to display</span></div>'">
+        </div>
       </div>
 
-      <div class="os-tab-panels">
-
-        <div class="os-tab-panel active" data-tab="latest">
-          <div class="os-panel-h">Latest Release</div>
-          <div class="os-panel-meta">
-            <span><b>version</b> v1.0.37</span>
-            <span><b>date</b> 2026-05-09</span>
-            <span><b>repo</b> shufps/ESP-Miner-NerdQAxePlus</span>
-          </div>
-          <div class="os-panel-list">
-            <div class="item">New dashboard - modern UI, temp pills, 3h history &amp; zoom</div>
-            <div class="item">Stratum V2 (SV2) support with Noise encryption</div>
-            <div class="item">Dual Pool: SV1 and SV2 on different pools at once</div>
-            <div class="item">Independent dual-fan control (ASIC + VReg)</div>
-            <div class="item">OCTAXE: 8 individual chip temperatures in dashboard</div>
-            <div class="item">Coinbase stack overflow fix &amp; Pool 2 protocol fixes</div>
-          </div>
-          <div style="margin-top:1.1rem">
-            <a href="https://github.com/shufps/ESP-Miner-NerdQAxePlus/releases/latest" target="_blank" style="color:var(--orange);text-decoration:none;font-size:.78rem">→ Full release notes on GitHub</a>
-          </div>
+      <div class="os-tab-panel" data-tab="latest">
+        <div class="os-panel-h">Latest Release</div>
+        <div class="os-panel-meta">
+          <span><b>version</b> v1.0.37</span>
+          <span><b>date</b> 2026-05-09</span>
+          <span><b>repo</b> shufps/ESP-Miner-NerdQAxePlus</span>
         </div>
-
-        <div class="os-tab-panel" data-tab="sv2">
-          <div class="sv2-inline">SV2</div>
-          <div class="os-panel-h h-sv2">Stratum V2 compatible</div>
-          <p class="os-panel-sub">Since v1.0.37, NerdOS speaks <strong style="color:#fff">Stratum V2</strong> in addition to classic Stratum V1. Pools can now be addressed with the modern, Noise-encrypted protocol that brings end-to-end encryption, message authentication and a binary framing that’s an order of magnitude lighter on the wire.</p>
-          <div class="os-panel-list">
-            <div class="item"><strong>Noise encryption</strong> &mdash; sessions are authenticated and tamper-proof against intermediaries</div>
-            <div class="item"><strong>Extended Channel mode</strong> &mdash; SV2 channel implementation supported today</div>
-            <div class="item"><strong>Mixed Dual Pool</strong> &mdash; run SV1 on one pool and SV2 on another simultaneously</div>
-            <div class="item"><strong>Lower bandwidth</strong> &mdash; compact binary framing vs JSON-RPC</div>
-          </div>
-          <div style="margin-top:1.1rem">
-            <a href="https://stratumprotocol.org" target="_blank" style="color:#57E9F0;text-decoration:none;font-size:.78rem;border-bottom:1px solid rgba(87,233,240,.35);padding-bottom:1px">→ stratumprotocol.org</a>
-          </div>
+        <div class="os-panel-list">
+          <div class="item">New dashboard - modern UI, temp pills, 3h history &amp; zoom</div>
+          <div class="item">Stratum V2 (SV2) support with Noise encryption</div>
+          <div class="item">Dual Pool: SV1 and SV2 on different pools at once</div>
+          <div class="item">Independent dual-fan control (ASIC + VReg)</div>
+          <div class="item">OCTAXE: 8 individual chip temperatures in dashboard</div>
+          <div class="item">Coinbase stack overflow fix &amp; Pool 2 protocol fixes</div>
         </div>
-
-        <div class="os-tab-panel" data-tab="compat">
-          <div class="os-panel-h h-blue">Supported devices</div>
-          <p class="os-panel-sub">A single firmware, multiple boards. Every Nerd*axe ASIC variant in the ecosystem runs the same NerdOS image — just pick the build for your device.</p>
-          <div class="compat-list">
-            <div class="compat-row"><span class="compat-name">NerdAxe</span><span class="compat-spec">1× BM1370 · 1.2 TH/s</span><span class="compat-badge">SV1+SV2</span></div>
-            <div class="compat-row"><span class="compat-name">NerdQaxe+</span><span class="compat-spec">4× BM1368 · 2.4 TH/s</span><span class="compat-badge">SV1+SV2</span></div>
-            <div class="compat-row"><span class="compat-name">NerdQaxe++</span><span class="compat-spec">4× BM1370 · 4.8–6 TH/s</span><span class="compat-badge">SV1+SV2</span></div>
-            <div class="compat-row"><span class="compat-name">NerdQX</span><span class="compat-spec">4× BM1370 · 6–8 TH/s</span><span class="compat-badge">SV1+SV2</span></div>
-            <div class="compat-row"><span class="compat-name">NerdOctaxe Plus</span><span class="compat-spec">8× BM1368 · ~5 TH/s</span><span class="compat-badge">SV1+SV2</span></div>
-            <div class="compat-row"><span class="compat-name">NerdOctaxe Gamma</span><span class="compat-spec">8× BM1370 · 9.6–12 TH/s</span><span class="compat-badge">SV1+SV2</span></div>
-          </div>
+        <div style="margin-top:1.1rem">
+          <a href="https://github.com/shufps/ESP-Miner-NerdQAxePlus/releases/latest" target="_blank" style="color:var(--orange);text-decoration:none;font-size:.78rem">→ Full release notes on GitHub</a>
         </div>
-
-        <div class="os-tab-panel" data-tab="contrib">
-          <div class="os-panel-h h-green">Contributors</div>
-          <p class="os-panel-sub">NerdOS is the work of a global community of open-source maintainers and contributors. A non-exhaustive thank-you list:</p>
-          <div class="contrib-grid">
-            <a href="https://github.com/shufps" target="_blank" rel="noopener" class="contrib-card">
-              <div class="contrib-avatar"><img src="https://github.com/shufps.png?size=64" alt="@shufps" loading="lazy"></div>
-              <div class="contrib-info"><div class="contrib-name">@shufps</div><div class="contrib-role">Lead maintainer</div></div>
-            </a>
-            <a href="https://github.com/zcht" target="_blank" rel="noopener" class="contrib-card">
-              <div class="contrib-avatar"><img src="https://github.com/zcht.png?size=64" alt="@zcht" loading="lazy"></div>
-              <div class="contrib-info"><div class="contrib-name">@zcht</div><div class="contrib-role">New dashboard, perf</div></div>
-            </a>
-            <a href="https://github.com/foXaCe" target="_blank" rel="noopener" class="contrib-card">
-              <div class="contrib-avatar"><img src="https://github.com/foXaCe.png?size=64" alt="@foXaCe" loading="lazy"></div>
-              <div class="contrib-info"><div class="contrib-name">@foXaCe</div><div class="contrib-role">Translations, OTA</div></div>
-            </a>
-            <a href="https://github.com/BitMaker-hub" target="_blank" rel="noopener" class="contrib-card">
-              <div class="contrib-avatar"><img src="https://github.com/BitMaker-hub.png?size=64" alt="@BitMaker-hub" loading="lazy"></div>
-              <div class="contrib-info"><div class="contrib-name">@BitMaker-hub</div><div class="contrib-role">NerdOctaxe 6-phase</div></div>
-            </a>
-            <a href="https://github.com/WantClue" target="_blank" rel="noopener" class="contrib-card">
-              <div class="contrib-avatar"><img src="https://github.com/WantClue.png?size=64" alt="@WantClue" loading="lazy"></div>
-              <div class="contrib-info"><div class="contrib-name">@WantClue</div><div class="contrib-role">NerdNOS, flasher</div></div>
-            </a>
-            <a href="https://github.com/Aga-UU" target="_blank" rel="noopener" class="contrib-card">
-              <div class="contrib-avatar"><img src="https://github.com/Aga-UU.png?size=64" alt="@Aga-UU" loading="lazy"></div>
-              <div class="contrib-info"><div class="contrib-name">@Aga-UU</div><div class="contrib-role">Ping loss UI</div></div>
-            </a>
-            <a href="https://github.com/Patsch91" target="_blank" rel="noopener" class="contrib-card">
-              <div class="contrib-avatar"><img src="https://github.com/Patsch91.png?size=64" alt="@Patsch91" loading="lazy"></div>
-              <div class="contrib-info"><div class="contrib-name">@Patsch91</div><div class="contrib-role">NerdOctaxe hw</div></div>
-            </a>
-            <a href="https://github.com/IxTechCrypto" target="_blank" rel="noopener" class="contrib-card">
-              <div class="contrib-avatar"><img src="https://github.com/IxTechCrypto.png?size=64" alt="@IxTechCrypto" loading="lazy"></div>
-              <div class="contrib-info"><div class="contrib-name">@IxTechCrypto</div><div class="contrib-role">NerdQX hw</div></div>
-            </a>
-            <a href="https://github.com/phil31" target="_blank" rel="noopener" class="contrib-card">
-              <div class="contrib-avatar"><img src="https://github.com/phil31.png?size=64" alt="@phil31" loading="lazy"></div>
-              <div class="contrib-info"><div class="contrib-name">@phil31</div><div class="contrib-role">NerdEKO Gamma hw</div></div>
-            </a>
-            <a href="https://github.com/shufps/ESP-Miner-NerdQAxePlus/graphs/contributors" target="_blank" rel="noopener" class="contrib-card">
-              <div class="contrib-avatar" style="background:linear-gradient(135deg,var(--dim),var(--blue));color:#fff">+8</div>
-              <div class="contrib-info"><div class="contrib-name">View all</div><div class="contrib-role">on GitHub</div></div>
-            </a>
-          </div>
-        </div>
-
-        <div class="os-tab-panel" data-tab="mon">
-          <div class="os-panel-h h-blue">Monitoring stack</div>
-          <p class="os-panel-sub">NerdOS exposes its full metrics surface over REST + WebSocket. A drop-in Grafana + InfluxDB stack ships in the repo, so you can spin up a dashboard for your whole fleet in minutes.</p>
-          <div class="os-panel-list">
-            <div class="item"><strong>InfluxDB push</strong> &mdash; hashrate, hashrate_1m, chip/VReg temps, fan RPM, power, uptime</div>
-            <div class="item"><strong>Grafana dashboard</strong> &mdash; pre-built JSON, ready to import</div>
-            <div class="item"><strong>WebSocket telemetry</strong> &mdash; live metrics for custom UIs</div>
-            <div class="item"><strong>Discord webhooks</strong> &mdash; block-found notifications</div>
-          </div>
-          <div style="margin-top:1.1rem">
-            <a href="https://github.com/shufps/ESP-Miner-NerdQAxePlus/tree/master/monitoring" target="_blank" style="color:var(--blue);text-decoration:none;font-size:.78rem;border-bottom:1px solid rgba(88,166,255,.35);padding-bottom:1px">→ /monitoring in the repo</a>
-          </div>
-        </div>
-
       </div>
+
+      <div class="os-tab-panel" data-tab="sv2">
+        <div class="sv2-inline">SV2</div>
+        <div class="os-panel-h h-sv2">Stratum V2 compatible</div>
+        <p class="os-panel-sub">Since v1.0.37, NerdOS speaks <strong style="color:#fff">Stratum V2</strong> in addition to classic Stratum V1. Pools can now be addressed with the modern, Noise-encrypted protocol that brings end-to-end encryption, message authentication and a binary framing that’s an order of magnitude lighter on the wire.</p>
+        <div class="os-panel-list">
+          <div class="item"><strong>Noise encryption</strong> &mdash; sessions are authenticated and tamper-proof against intermediaries</div>
+          <div class="item"><strong>Extended Channel mode</strong> &mdash; SV2 channel implementation supported today</div>
+          <div class="item"><strong>Mixed Dual Pool</strong> &mdash; run SV1 on one pool and SV2 on another simultaneously</div>
+          <div class="item"><strong>Lower bandwidth</strong> &mdash; compact binary framing vs JSON-RPC</div>
+        </div>
+        <div style="margin-top:1.1rem">
+          <a href="https://stratumprotocol.org" target="_blank" style="color:#57E9F0;text-decoration:none;font-size:.78rem;border-bottom:1px solid rgba(87,233,240,.35);padding-bottom:1px">→ stratumprotocol.org</a>
+        </div>
+      </div>
+
+      <div class="os-tab-panel" data-tab="compat">
+        <div class="os-panel-h h-blue">Supported devices</div>
+        <p class="os-panel-sub">A single firmware, multiple boards. Every Nerd*axe ASIC variant in the ecosystem runs the same NerdOS image — just pick the build for your device.</p>
+        <div class="compat-list">
+          <div class="compat-row">
+            <span class="compat-name">NerdAxe</span>
+            <span class="compat-spec"><b>Ultra</b>1× BM1366 · ~0.5 TH/s<br><b>Gamma</b>1× BM1370 · 1.2 TH/s</span>
+            <span class="compat-badge">SV1+SV2</span>
+          </div>
+          <div class="compat-row">
+            <span class="compat-name">NerdQaxe</span>
+            <span class="compat-spec"><b>+</b>4× BM1368 · 2.4 TH/s<br><b>++</b>4× BM1370 · 4.8–6 TH/s</span>
+            <span class="compat-badge">SV1+SV2</span>
+          </div>
+          <div class="compat-row">
+            <span class="compat-name">NerdQX</span>
+            <span class="compat-spec">4× BM1370 · 6–8 TH/s</span>
+            <span class="compat-badge">SV1+SV2</span>
+          </div>
+          <div class="compat-row">
+            <span class="compat-name">NerdOctaxe</span>
+            <span class="compat-spec"><b>Plus</b>8× BM1368 · ~5 TH/s<br><b>Gamma</b>8× BM1370 · 9.6–12 TH/s</span>
+            <span class="compat-badge">SV1+SV2</span>
+          </div>
+          <div class="compat-row">
+            <span class="compat-name">NerdEKO</span>
+            <span class="compat-spec"><b>Gamma</b>12× BM1370 · ~14 TH/s</span>
+            <span class="compat-badge">SV1+SV2</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="os-tab-panel" data-tab="contrib">
+        <div class="os-panel-h h-green">Contributors</div>
+        <p class="os-panel-sub">NerdOS is the work of a global community of open-source maintainers and contributors. A non-exhaustive thank-you list:</p>
+        <div class="contrib-grid">
+          <a href="https://github.com/shufps" target="_blank" rel="noopener" class="contrib-card">
+            <div class="contrib-avatar"><img src="https://github.com/shufps.png?size=64" alt="@shufps" loading="lazy"></div>
+            <div class="contrib-info"><div class="contrib-name">@shufps</div><div class="contrib-role">Lead maintainer</div></div>
+          </a>
+          <a href="https://github.com/zcht" target="_blank" rel="noopener" class="contrib-card">
+            <div class="contrib-avatar"><img src="https://github.com/zcht.png?size=64" alt="@zcht" loading="lazy"></div>
+            <div class="contrib-info"><div class="contrib-name">@zcht</div><div class="contrib-role">New dashboard, perf</div></div>
+          </a>
+          <a href="https://github.com/foXaCe" target="_blank" rel="noopener" class="contrib-card">
+            <div class="contrib-avatar"><img src="https://github.com/foXaCe.png?size=64" alt="@foXaCe" loading="lazy"></div>
+            <div class="contrib-info"><div class="contrib-name">@foXaCe</div><div class="contrib-role">Translations, OTA</div></div>
+          </a>
+          <a href="https://github.com/BitMaker-hub" target="_blank" rel="noopener" class="contrib-card">
+            <div class="contrib-avatar"><img src="https://github.com/BitMaker-hub.png?size=64" alt="@BitMaker-hub" loading="lazy"></div>
+            <div class="contrib-info"><div class="contrib-name">@BitMaker-hub</div><div class="contrib-role">NerdOctaxe 6-phase</div></div>
+          </a>
+          <a href="https://github.com/WantClue" target="_blank" rel="noopener" class="contrib-card">
+            <div class="contrib-avatar"><img src="https://github.com/WantClue.png?size=64" alt="@WantClue" loading="lazy"></div>
+            <div class="contrib-info"><div class="contrib-name">@WantClue</div><div class="contrib-role">NerdNOS, flasher</div></div>
+          </a>
+          <a href="https://github.com/Aga-UU" target="_blank" rel="noopener" class="contrib-card">
+            <div class="contrib-avatar"><img src="https://github.com/Aga-UU.png?size=64" alt="@Aga-UU" loading="lazy"></div>
+            <div class="contrib-info"><div class="contrib-name">@Aga-UU</div><div class="contrib-role">Ping loss UI</div></div>
+          </a>
+          <a href="https://github.com/Patsch91" target="_blank" rel="noopener" class="contrib-card">
+            <div class="contrib-avatar"><img src="https://github.com/Patsch91.png?size=64" alt="@Patsch91" loading="lazy"></div>
+            <div class="contrib-info"><div class="contrib-name">@Patsch91</div><div class="contrib-role">NerdOctaxe hw</div></div>
+          </a>
+          <a href="https://github.com/IxTechCrypto" target="_blank" rel="noopener" class="contrib-card">
+            <div class="contrib-avatar"><img src="https://github.com/IxTechCrypto.png?size=64" alt="@IxTechCrypto" loading="lazy"></div>
+            <div class="contrib-info"><div class="contrib-name">@IxTechCrypto</div><div class="contrib-role">NerdQX hw</div></div>
+          </a>
+          <a href="https://github.com/phil31" target="_blank" rel="noopener" class="contrib-card">
+            <div class="contrib-avatar"><img src="https://github.com/phil31.png?size=64" alt="@phil31" loading="lazy"></div>
+            <div class="contrib-info"><div class="contrib-name">@phil31</div><div class="contrib-role">NerdEKO Gamma hw</div></div>
+          </a>
+          <a href="https://github.com/shufps/ESP-Miner-NerdQAxePlus/graphs/contributors" target="_blank" rel="noopener" class="contrib-card">
+            <div class="contrib-avatar" style="background:linear-gradient(135deg,var(--dim),var(--blue));color:#fff">+8</div>
+            <div class="contrib-info"><div class="contrib-name">View all</div><div class="contrib-role">on GitHub</div></div>
+          </a>
+        </div>
+      </div>
+
+      <div class="os-tab-panel" data-tab="mon">
+        <div class="os-panel-h h-blue">Monitoring stack</div>
+        <p class="os-panel-sub">NerdOS exposes its full metrics surface over REST + WebSocket. A drop-in Grafana + InfluxDB stack ships in the repo, so you can spin up a dashboard for your whole fleet in minutes.</p>
+        <div class="os-panel-list">
+          <div class="item"><strong>InfluxDB push</strong> &mdash; hashrate, hashrate_1m, chip/VReg temps, fan RPM, power, uptime</div>
+          <div class="item"><strong>Grafana dashboard</strong> &mdash; pre-built JSON, ready to import</div>
+          <div class="item"><strong>WebSocket telemetry</strong> &mdash; live metrics for custom UIs</div>
+          <div class="item"><strong>Discord webhooks</strong> &mdash; block-found notifications</div>
+        </div>
+        <div style="margin-top:1.1rem">
+          <a href="https://github.com/shufps/ESP-Miner-NerdQAxePlus/tree/master/monitoring" target="_blank" style="color:var(--blue);text-decoration:none;font-size:.78rem;border-bottom:1px solid rgba(88,166,255,.35);padding-bottom:1px">→ /monitoring in the repo</a>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -1656,21 +1744,16 @@ footer{
   <p class="section-desc">Software and add-ons that extend the Nerd* ecosystem - monitoring dashboards, network adapters, flashers and more. Built by the community, for the community.</p>
   <div class="tools-grid">
 
-    <a href="https://hashwatcher.app/" target="_blank" rel="noopener" class="tool-card tool-card-featured">
-      <div class="tool-card-body">
-        <span class="tool-feat-badge">◆ Featured</span>
-        <div class="tool-card-head">
-          <div class="tool-icon">HW</div>
-          <div class="tool-name">HashWatcher</div>
-        </div>
-        <p class="tool-desc">Multi-miner dashboard for mobile and web. See <strong style="color:var(--text)">true hashrate, power, temps and efficiency</strong> across your entire Bitaxe / NerdQaxe / NerdOctaxe / Antminer fleet at a glance. Smart alerts, overclock tuning per device, PDF reports, Mac menu-bar stats. Your data stays on-device — no cloud required.</p>
-        <div class="tool-meta">
-          <span class="tool-tag tag-web">iOS · Android · Mac</span>
-          <span class="tool-tag tag-open">Privacy-first</span>
-        </div>
+    <a href="https://hashwatcher.app/" target="_blank" rel="noopener" class="tool-card">
+      <span class="tool-feat-badge">◆ Featured</span>
+      <div class="tool-card-head">
+        <div class="tool-icon">HW</div>
+        <div class="tool-name">HashWatcher</div>
       </div>
-      <div class="tool-card-img">
-        <img src="https://hashwatcher.app/images/hero-phone.png" alt="HashWatcher mobile dashboard" loading="lazy">
+      <p class="tool-desc">Multi-miner dashboard for mobile and web. See <strong style="color:var(--text)">true hashrate, power, temps and efficiency</strong> across your Bitaxe / NerdQaxe / NerdOctaxe / Antminer fleet at a glance. Smart alerts, overclock tuning per device, PDF reports, Mac menu-bar stats. Your data stays on-device — no cloud required.</p>
+      <div class="tool-meta">
+        <span class="tool-tag tag-web">iOS · Android · Mac</span>
+        <span class="tool-tag tag-open">Privacy-first</span>
       </div>
     </a>
 
